@@ -1,0 +1,28 @@
+@implements IDisposable
+@inject ThemeState Theme
+@inject IJSRuntime JS
+
+<MudIconButton Icon="@(Theme.IsDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)"
+               Color="Color.Inherit" OnClick="ToggleAsync" />
+
+@code {
+    protected override void OnInitialized() => Theme.Changed += OnThemeChanged;
+
+    private void OnThemeChanged() => _ = InvokeAsync(StateHasChanged);
+
+    private async Task ToggleAsync()
+    {
+        var next = !Theme.IsDarkMode;
+        try
+        {
+            await JS.InvokeVoidAsync("javmcpTheme.setDark", next);
+        }
+        catch (JSException)
+        {
+        }
+
+        await Theme.SetDarkModeAsync(JS, next);
+    }
+
+    public void Dispose() => Theme.Changed -= OnThemeChanged;
+}

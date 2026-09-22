@@ -1,0 +1,36 @@
+name: jevmcp
+
+services:
+  jevmcp:
+    image: jevmcp:dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${JEVMCP_HOST_PORT:-10022}:10022"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      ASPNETCORE_URLS: http://+:10022
+      CALLAUDIT__DATABASEPATH: /app/data/jevmcp.db
+      ACCESSCONTROL__USERNAME: ${ACCESSCONTROL__USERNAME:-}
+      ACCESSCONTROL__PASSWORD: ${ACCESSCONTROL__PASSWORD:-}
+    volumes:
+      # SQLite (jevmcp.db): sobrevive a `docker compose build` / `up --build`.
+      # Padrão: pasta no host ./data (gitignored). Para volume Docker nomeado, veja comentário no fim do arquivo.
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:10022/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 25s
+    restart: unless-stopped
+
+# Alternativa (volume nomeado fixo, independente da pasta do projeto):
+#   substitua o bind acima por:  jevmcp-data:/app/data
+#   e descomente:
+# volumes:
+#   jevmcp-data:
+#     name: jevmcp_sqlite_data

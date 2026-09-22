@@ -1,0 +1,40 @@
+@inherits LayoutComponentBase
+@implements IDisposable
+@inject ThemeState Theme
+
+<MudThemeBridge>
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudText Typo="Typo.h6">JEV-MCP</MudText>
+        <MudSpacer />
+        <LanguageSwitcher />
+        <DarkModeToggle />
+    </MudAppBar>
+
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraSmall" Class="d-flex justify-center" Style="min-height: calc(100vh - 64px);">
+            <div class="login-card d-flex flex-column justify-center">
+                @Body
+            </div>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+<div id="blazor-error-ui" data-nosnippet>
+    @L["UnexpectedError"]
+    <a href="." class="reload">@L["Reload"]</a>
+    <span class="dismiss">🗙</span>
+</div>
+</MudThemeBridge>
+
+@code {
+    protected override void OnInitialized() => Theme.Changed += OnThemeChanged;
+
+    private void OnThemeChanged() => _ = InvokeAsync(StateHasChanged);
+
+    public void Dispose() => Theme.Changed -= OnThemeChanged;
+}

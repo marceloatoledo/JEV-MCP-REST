@@ -1,0 +1,405 @@
+@page "/settings"
+@attribute [Authorize]
+@using System.Globalization
+@using JevMcp.Data
+@inject CredentialOverview Credentials
+@inject IOperationalSettings Operational
+@inject UiDisplayTime DisplayTime
+@inject IAccessTokenService TokenService
+@inject ISnackbar Snackbar
+@inject IOptions<AccessControlOptions> AccessOptions
+@inject IConfiguration Configuration
+
+<PageTitle>@L["SettingsTitle"]</PageTitle>
+
+<MudText Typo="Typo.h5">@L["SettingsTitle"]</MudText>
+<MudText Typo="Typo.body2" Class="mt-2 mb-4">
+    @L["SettingsHelp"]
+</MudText>
+
+<MudText Typo="Typo.subtitle1" Class="mb-2">@L["ProviderSection"]</MudText>
+<MudPaper Class="pa-4 mb-6" Outlined="true">
+    <MudText Typo="Typo.body2">@L["ModelLine"] <code>@Credentials.Model</code></MudText>
+    <MudText Typo="Typo.body2">@L["EffectiveProvider", Credentials.Provider ?? L["NotConfigured"].Value]</MudText>
+</MudPaper>
+
+<MudText Typo="Typo.subtitle1" Class="mb-2">@L["EnvVars"]</MudText>
+<MudTable Items="Credentials.Credentials" Dense="true" Hover="true" Class="mb-6" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>@L["Variable"]</MudTh>
+        <MudTh>@L["State"]</MudTh>
+        <MudTh>@L["Value"]</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="@L["Variable"]"><code>@context.Variable</code></MudTd>
+        <MudTd DataLabel="@L["State"]">@(context.Present ? L["Present"] : L["Absent"])</MudTd>
+        <MudTd DataLabel="@L["Value"]"><code>@context.Display</code></MudTd>
+    </RowTemplate>
+</MudTable>
+
+<MudText Typo="Typo.subtitle1" Class="mb-2">@L["TokenPricing"]</MudText>
+<MudText Typo="Typo.body2" Class="mb-2">@L["TokenPricingHelp"]</MudText>
+<MudPaper Class="pa-4 mb-6" Outlined="true">
+    <MudStack Row="true" AlignItems="AlignItems.End" Class="mb-4">
+        <MudTextField Variant="Variant.Filled" @bind-Value="_newProvider" Label="@L["Provider"]" />
+        <MudNumericField T="decimal" @bind-Value="_newRate" Label="@L["UsdPerMillionTokens"]"
+                         Variant="Variant.Filled" Min="0" Format="F10"
+                         Culture="@CultureInfo.InvariantCulture" />
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="_busy" OnClick="AddPricingAsync">
+            @L["Create"]
+        </MudButton>
+    </MudStack>
+    <MudDataGrid T="ProviderPricingRow" Items="_pricingRows" Dense="true" Hover="true">
+        <Columns>
+            <TemplateColumn Title="@L["Provider"]">
+                <CellTemplate>
+                    <MudTextField @bind-Value="context.Item.Slug" Variant="Variant.Filled" Margin="Margin.Dense" />
+                </CellTemplate>
+            </TemplateColumn>
+            <TemplateColumn Title="@L["UsdPerMillionTokens"]">
+                <CellTemplate>
+                    <MudNumericField T="decimal" @bind-Value="context.Item.Rate" Variant="Variant.Filled"
+                                     Min="0" Format="F10" Culture="@CultureInfo.InvariantCulture"
+                                     Margin="Margin.Dense" />
+                </CellTemplate>
+            </TemplateColumn>
+            <TemplateColumn Title="@L["Operation"]">
+                <CellTemplate>
+                    <MudButton Size="Size.Small" Color="Color.Primary" Variant="Variant.Text"
+                               Disabled="_busy"
+                               OnClick="@(() => UpdatePricingAsync(context.Item))">@L["Update"]</MudButton>
+                    <MudButton Size="Size.Small" Color="Color.Error" Variant="Variant.Text"
+                               Disabled="_busy"
+                               OnClick="@(() => DeletePricingAsync(context.Item))">@L["Remove"]</MudButton>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+        <NoRecordsContent>
+            @L["NoPricing"]
+        </NoRecordsContent>
+    </MudDataGrid>
+</MudPaper>
+
+<MudText Typo="Typo.subtitle1" Class="mb-2">@L["Operation"]</MudText>
+<MudPaper Class="pa-4 mb-6" Outlined="true">
+    <MudNumericField T="int" @bind-Value="_retention" Label="@L["RetentionDays"]" Variant="Variant.Filled"
+                     Min="0" HelperText="@L["RetentionHelp"]" />
+    <MudSwitch T="bool" @bind-Value="_capture" Label="@L["CapturePayloads"]" Color="Color.Primary" Class="mt-4" />
+    <MudSwitch T="bool" @bind-Value="_anonymous" Label="@L["AnonymousMcp"]" Color="Color.Warning" Class="mt-2" />
+    <MudSelect T="string" @bind-Value="_timeZoneId" Label="@L["DisplayTimeZone"]" Variant="Variant.Filled"
+               Class="mt-4" HelperText="@L["DisplayTimeZoneHelp"]">
+        @foreach (var zone in _timeZones)
+        {
+            <MudSelectItem Value="@zone.Id">@FormatZoneOption(zone)</MudSelectItem>
+        }
+    </MudSelect>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" Disabled="_busy" OnClick="SaveAsync">
+        @L["Save"]
+    </MudButton>
+</MudPaper>
+
+<MudText Typo="Typo.subtitle1" Class="mb-2">@L["AccessTokens"]</MudText>
+<MudText Typo="Typo.body2" Class="mb-4">
+    @L["TokensHelp"]
+</MudText>
+
+@if (_issued is not null)
+{
+    <MudAlert Severity="Severity.Warning" Class="mb-4" ShowCloseIcon="true" CloseIconClicked="@(() => _issued = null)">
+        @L["CopyNow"]
+        <br />
+        <code>@_issued</code>
+    </MudAlert>
+}
+
+<MudPaper Class="pa-4 mb-6" Outlined="true">
+    <MudStack Row="true" AlignItems="AlignItems.End">
+        <MudTextField Variant="Variant.Filled" @bind-Value="_name" Label="@L["Name"]" />
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="_busy" OnClick="CreateAsync">
+            @L["Create"]
+        </MudButton>
+    </MudStack>
+</MudPaper>
+
+@if (_items.Count == 0)
+{
+    <MudAlert Severity="Severity.Info">@L["NoTokens"]</MudAlert>
+}
+else
+{
+    <MudTable Items="_items" Hover="true" Breakpoint="Breakpoint.Sm" Dense="true">
+        <HeaderContent>
+            <MudTh>@L["Name"]</MudTh>
+            <MudTh>@L["Prefix"]</MudTh>
+            <MudTh>@L["Created"]</MudTh>
+            <MudTh>@L["LastUsed"]</MudTh>
+            <MudTh>@L["State"]</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="@L["Name"]">@context.Name</MudTd>
+            <MudTd DataLabel="@L["Prefix"]"><code>@context.Prefix</code></MudTd>
+            <MudTd DataLabel="@L["Created"]">@DisplayTime.FormatInstant(context.CreatedAt, "yyyy-MM-dd HH:mm:ss")</MudTd>
+            <MudTd DataLabel="@L["LastUsed"]">@(context.LastUsedAt is { } used ? DisplayTime.FormatInstant(used, "yyyy-MM-dd HH:mm:ss") : "—")</MudTd>
+            <MudTd DataLabel="@L["State"]">@(context.Active ? L["Active"] : L["Revoked"])</MudTd>
+            <MudTd>
+                <MudStack Row="true" Spacing="0">
+                    @if (context.Active)
+                    {
+                        <MudButton Size="Size.Small" Color="Color.Error" Variant="Variant.Text"
+                                   OnClick="@(() => RevokeAsync(context.Id))">@L["Revoke"]</MudButton>
+                    }
+                    else
+                    {
+                        <MudButton Size="Size.Small" Color="Color.Primary" Variant="Variant.Text"
+                                   OnClick="@(() => ReactivateAsync(context.Id))">@L["Reactivate"]</MudButton>
+                    }
+                    <MudButton Size="Size.Small" Color="Color.Error" Variant="Variant.Text"
+                               OnClick="@(() => DeleteAsync(context.Id))">@L["Remove"]</MudButton>
+                </MudStack>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+}
+
+@code {
+    private int _retention;
+    private List<ProviderPricingRow> _pricingRows = [];
+    private string _newProvider = "";
+    private decimal _newRate = TokenPricing.DefaultUsdPerMillion;
+    private bool _capture;
+    private bool _anonymous;
+    private string _timeZoneId = DisplaySettings.DefaultTimeZoneId;
+    private IReadOnlyList<TimeZoneInfo> _timeZones = [];
+    private IReadOnlyList<McpAccessToken> _items = [];
+    private string _name = "";
+    private string? _issued;
+    private bool _busy;
+
+    protected override Task OnInitializedAsync()
+    {
+        _name = L["DefaultTokenName"];
+        _retention = Operational.RetentionDays;
+        ReloadPricingRows();
+        _capture = Operational.CapturePayloads;
+        _anonymous = Operational.AllowAnonymousMcp;
+        _timeZoneId = Operational.DisplayTimeZoneId;
+        _timeZones = DisplayTimeZone.SystemZones();
+        EnsureSelectedTimeZoneInList();
+        return ReloadTokensAsync();
+    }
+
+    private void EnsureSelectedTimeZoneInList()
+    {
+        if (_timeZones.Any(zone => string.Equals(zone.Id, _timeZoneId, StringComparison.OrdinalIgnoreCase)))
+        {
+            return;
+        }
+
+        var resolved = DisplayTimeZone.Resolve(_timeZoneId);
+        _timeZones = _timeZones.Append(resolved)
+            .OrderBy(zone => zone.BaseUtcOffset)
+            .ThenBy(zone => zone.DisplayName, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
+    private static string FormatZoneOption(TimeZoneInfo zone) => zone.DisplayName;
+
+    private async Task SaveAsync()
+    {
+        _busy = true;
+        try
+        {
+            await Operational.SetRetentionDaysAsync(_retention);
+            await Operational.SetCapturePayloadsAsync(_capture);
+            await Operational.SetAllowAnonymousMcpAsync(_anonymous);
+            await Operational.SetDisplayTimeZoneIdAsync(_timeZoneId);
+            Snackbar.Add(L["SettingsSaved"], Severity.Success);
+        }
+        catch (Exception error) when (error is ArgumentOutOfRangeException or ArgumentException or TimeZoneNotFoundException)
+        {
+            Snackbar.Add(error.Message, Severity.Error);
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+
+    private async Task CreateAsync()
+    {
+        _busy = true;
+        try
+        {
+            var issued = await TokenService.CreateAsync(_name);
+            _issued = issued.Secret;
+            await ReloadTokensAsync();
+        }
+        catch (ArgumentException error)
+        {
+            Snackbar.Add(error.Message, Severity.Error);
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+
+    private async Task RevokeAsync(long id)
+    {
+        await TokenService.RevokeAsync(id);
+        await ReloadTokensAsync();
+    }
+
+    private async Task ReactivateAsync(long id)
+    {
+        await TokenService.ReactivateAsync(id);
+        await ReloadTokensAsync();
+    }
+
+    private async Task DeleteAsync(long id)
+    {
+        var token = _items.FirstOrDefault(item => item.Id == id);
+        if (token is null)
+        {
+            return;
+        }
+
+        if (token.Active &&
+            _items.Count(item => item.Active) <= 1 &&
+            !CanRemoveLastActiveToken())
+        {
+            Snackbar.Add(L["CannotDeleteLastToken"], Severity.Error);
+            return;
+        }
+
+        _busy = true;
+        try
+        {
+            await TokenService.DeleteAsync(id);
+            await ReloadTokensAsync();
+            Snackbar.Add(L["TokenRemoved"], Severity.Success);
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+
+    private async Task AddPricingAsync()
+    {
+        _busy = true;
+        try
+        {
+            await Operational.UpsertUsdPerMillionTokensAsync(_newProvider, _newRate);
+            _newProvider = "";
+            _newRate = TokenPricing.DefaultUsdPerMillion;
+            ReloadPricingRows();
+            Snackbar.Add(L["SettingsSaved"], Severity.Success);
+        }
+        catch (Exception error) when (error is ArgumentException or ArgumentOutOfRangeException)
+        {
+            Snackbar.Add(
+                error is ArgumentException && error.Message.Contains("provider must match", StringComparison.Ordinal)
+                    ? L["InvalidProviderSlug"]
+                    : error.Message,
+                Severity.Error);
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+
+    private async Task UpdatePricingAsync(ProviderPricingRow row)
+    {
+        _busy = true;
+        try
+        {
+            var slug = TokenPricing.NormalizeSlug(row.Slug);
+            if (!string.Equals(row.OriginalSlug, slug, StringComparison.OrdinalIgnoreCase) &&
+                _pricingRows.Any(item =>
+                    !ReferenceEquals(item, row) &&
+                    string.Equals(item.Slug, slug, StringComparison.OrdinalIgnoreCase)))
+            {
+                Snackbar.Add(L["DuplicateProvider"], Severity.Error);
+                return;
+            }
+
+            await Operational.UpsertUsdPerMillionTokensAsync(slug, row.Rate);
+            if (!string.Equals(row.OriginalSlug, slug, StringComparison.OrdinalIgnoreCase))
+            {
+                await Operational.DeleteUsdPerMillionTokensAsync(row.OriginalSlug);
+            }
+
+            ReloadPricingRows();
+            Snackbar.Add(L["SettingsSaved"], Severity.Success);
+        }
+        catch (Exception error) when (error is ArgumentException or ArgumentOutOfRangeException)
+        {
+            Snackbar.Add(
+                error is ArgumentException && error.Message.Contains("provider must match", StringComparison.Ordinal)
+                    ? L["InvalidProviderSlug"]
+                    : error.Message,
+                Severity.Error);
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+
+    private async Task DeletePricingAsync(ProviderPricingRow row)
+    {
+        _busy = true;
+        try
+        {
+            await Operational.DeleteUsdPerMillionTokensAsync(row.Slug);
+            ReloadPricingRows();
+            Snackbar.Add(L["PricingRemoved"], Severity.Success);
+        }
+        catch (ArgumentException error)
+        {
+            Snackbar.Add(error.Message, Severity.Error);
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+
+    private async Task ReloadTokensAsync()
+    {
+        _items = await TokenService.ListAsync();
+    }
+
+    private void ReloadPricingRows()
+    {
+        _pricingRows = Operational.UsdPerMillionByProvider
+            .OrderBy(entry => entry.Key, StringComparer.Ordinal)
+            .Select(entry => new ProviderPricingRow(entry.Key, entry.Value))
+            .ToList();
+    }
+
+    private sealed class ProviderPricingRow(string slug, decimal rate)
+    {
+        public string OriginalSlug { get; set; } = slug;
+
+        public string Slug { get; set; } = slug;
+
+        public decimal Rate { get; set; } = rate;
+    }
+
+    private bool CanRemoveLastActiveToken()
+    {
+        if (AccessControlHost.AllowsNoActiveTokens(Operational.AllowAnonymousMcp, AccessOptions.Value))
+        {
+            return true;
+        }
+
+        var urls = Configuration["urls"]
+            ?? Environment.GetEnvironmentVariable("ASPNETCORE_URLS")
+            ?? Configuration["applicationUrl"];
+        return !Loopback.IsExposedBinding(urls);
+    }
+}

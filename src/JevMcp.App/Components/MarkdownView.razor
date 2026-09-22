@@ -1,0 +1,45 @@
+@inject IMarkdownRenderer Renderer
+
+<article class="markdown-view">
+    @if (_html is null)
+    {
+        <MudProgressLinear Indeterminate="true" Class="mb-4" />
+    }
+    else if (_html.Length == 0)
+    {
+        <MudAlert Severity="Severity.Info" Variant="Variant.Outlined">@EmptyMessage</MudAlert>
+    }
+    else
+    {
+        <div class="markdown-view__body mud-typography mud-typography-body1">@((MarkupString)_html)</div>
+    }
+</article>
+
+@code {
+    [Parameter]
+    public string? Markdown { get; set; }
+
+    [Parameter]
+    public string EmptyMessage { get; set; } = string.Empty;
+
+    private string? _html;
+    private string? _lastSource;
+
+    protected override void OnParametersSet() => RefreshHtml();
+
+    private void RefreshHtml()
+    {
+        if (Markdown is null)
+        {
+            _lastSource = null;
+            _html = null;
+            return;
+        }
+
+        if (Markdown == _lastSource)
+            return;
+
+        _lastSource = Markdown;
+        _html = Markdown.Length == 0 ? string.Empty : Renderer.ToHtml(Markdown);
+    }
+}

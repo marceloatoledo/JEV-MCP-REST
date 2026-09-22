@@ -1,0 +1,293 @@
+@page "/audit"
+@attribute [Authorize]
+@inject ICallLogQueries Queries
+@inject ICallAuditAdmin AuditAdmin
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject UiDisplayTime DisplayTime
+@implements IDisposable
+
+<PageTitle>@L["AuditTitle"]</PageTitle>
+
+<MudText Typo="Typo.h5">@L["AuditTitle"]</MudText>
+<MudText Typo="Typo.body2" Class="mt-2 mb-4">
+    @L["AuditHelp"]
+</MudText>
+
+@if (_fromUtc is { } from)
+{
+    <MudText Typo="Typo.caption" Class="mb-4">
+        @L["AuditPeriodFromPanel", DisplayTime.FormatInstant(from, "yyyy-MM-dd HH:mm:ss"), _toUtc is { } to ? DisplayTime.FormatInstant(to, "yyyy-MM-dd HH:mm:ss") : "—"]
+    </MudText>
+}
+
+<MudGrid Class="mb-4">
+    <MudItem xs="12" md="3">
+        <MudSelect Variant="Variant.Filled" T="string" Label="@L["Tool"]" Clearable="true" @bind-Value="_tool">
+            @foreach (var tool in Tools)
+            {
+                <MudSelectItem Value="tool">@tool</MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
+    <MudItem xs="12" md="3">
+        <MudTextField Variant="Variant.Filled" @bind-Value="_provider" Label="@L["Provider"]" />
+    </MudItem>
+    <MudItem xs="12" md="2">
+        <MudSelect Variant="Variant.Filled" T="string" Label="@L["Action"]" Clearable="true" @bind-Value="_action">
+            @foreach (var action in Actions)
+            {
+                <MudSelectItem Value="action">@(action.Length == 0 ? L["EmptyAction"].Value : action)</MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
+    <MudItem xs="12" md="2">
+        <MudSelect Variant="Variant.Filled" T="string" Label="@L["Status"]" Clearable="true" @bind-Value="_status">
+            <MudSelectItem Value="@("ok")">ok</MudSelectItem>
+            <MudSelectItem Value="@("error")">error</MudSelectItem>
+        </MudSelect>
+    </MudItem>
+    <MudItem xs="12" md="2">
+        <MudSelect Variant="Variant.Filled" T="int" Label="@L["Period"]" Value="_hours" ValueChanged="OnHours">
+            <MudSelectItem Value="24">@L["Hours24"]</MudSelectItem>
+            <MudSelectItem Value="168">@L["Days7"]</MudSelectItem>
+            <MudSelectItem Value="720">@L["Days30"]</MudSelectItem>
+            <MudSelectItem Value="0">@L["PeriodAll"]</MudSelectItem>
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+
+<MudStack Row="true" Spacing="2" Class="mb-4">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="_busy" OnClick="ApplyAsync">@L["Filter"]</MudButton>
+    <MudButton Variant="Variant.Outlined" Color="Color.Error" Disabled="_busy" OnClick="ConfirmDeleteAllAsync">@L["AuditDeleteAll"]</MudButton>
+</MudStack>
+
+<MudDataGrid @ref="_grid" T="CallLogSummary" ServerData="LoadAsync" RowClick="OnRow"
+             Hover="true" Dense="true" RowsPerPage="25" Class="mb-4">
+    <Columns>
+        <TemplateColumn Title="@L["Instant"]">
+            <CellTemplate>
+                @DisplayTime.FormatInstant(context.Item.Instant, "yyyy-MM-dd HH:mm:ss")
+            </CellTemplate>
+        </TemplateColumn>
+        <PropertyColumn Property="x => x.Tool" Title="@L["Tool"]" />
+        <PropertyColumn Property="x => x.Provider" Title="@L["Provider"]" />
+        <PropertyColumn Property="x => x.ResultingAction" Title="@L["Action"]" />
+        <PropertyColumn Property="x => x.Status" Title="@L["Status"]" />
+        <PropertyColumn Property="x => x.DurationMs" Title="@L["Milliseconds"]" />
+        <TemplateColumn Title="@L["CostUsd"]">
+            <CellTemplate>
+                $@TokenCost.FormatUsd(context.Item.CostUsd)
+            </CellTemplate>
+        </TemplateColumn>
+        <PropertyColumn Property="x => x.TokenName" Title="@L["Token"]" />
+    </Columns>
+    <NoRecordsContent>
+        @L["NoCalls"]
+    </NoRecordsContent>
+    <PagerContent>
+        <MudDataGridPager T="CallLogSummary" />
+    </PagerContent>
+</MudDataGrid>
+
+@if (_detail is { } log)
+{
+    <MudPaper Class="pa-4" Outlined="true">
+        <MudText Typo="Typo.subtitle1">@L["CallId", log.Id]</MudText>
+        <MudText Typo="Typo.body2" Class="mt-2">@log.Tool · @log.Provider · @log.Model</MudText>
+        <MudText Typo="Typo.body2">@L["ActionStatusLine", log.ResultingAction ?? "—", log.Status]</MudText>
+        <MudText Typo="Typo.body2">@L["Token"]: @(log.TokenName ?? "—")</MudText>
+        <MudText Typo="Typo.body2">
+            @L["TokensCostLine", log.InputTokens, log.OutputTokens, TokenCost.FormatUsd(log.CostUsd)]
+        </MudText>
+        <MudText Typo="Typo.subtitle2" Class="mt-4">@L["RequestPayload"]</MudText>
+        @if (string.IsNullOrEmpty(log.RequestPayload))
+        {
+            <MudText Typo="Typo.caption">@L["NotCapturedConfig"]</MudText>
+        }
+        else
+        {
+            <pre class="mt-2" style="white-space:pre-wrap">@log.RequestPayload</pre>
+        }
+        <MudText Typo="Typo.subtitle2" Class="mt-4">@L["ResponsePayload"]</MudText>
+        @if (string.IsNullOrEmpty(log.ResponsePayload))
+        {
+            <MudText Typo="Typo.caption">@L["NotCaptured"]</MudText>
+        }
+        else
+        {
+            <pre class="mt-2" style="white-space:pre-wrap">@log.ResponsePayload</pre>
+        }
+    </MudPaper>
+}
+
+@code {
+    private static readonly string[] Tools =
+    [
+        JevTools.Verify, JevTools.Screen, JevTools.Find, JevTools.Classify, JevTools.Decide,
+        JevTools.Rerank, JevTools.Compare, JevTools.Extract, JevTools.Review, JevTools.Gate,
+    ];
+
+    private static readonly string[] Actions = ["auto", "review", "block", "escalate", "pass", "skip", ""];
+
+    private MudDataGrid<CallLogSummary>? _grid;
+    private string? _tool;
+    private string? _provider;
+    private string? _action;
+    private string? _status;
+    private int _hours = 24;
+    private DateTime? _fromUtc;
+    private DateTime? _toUtc;
+    private int? _durationMin;
+    private int? _durationMax;
+    private CallLog? _detail;
+    private bool _queryApplied;
+    private bool _busy;
+
+    [SupplyParameterFromQuery(Name = "tool")]
+    public string? QueryTool { get; set; }
+
+    [SupplyParameterFromQuery(Name = "action")]
+    public string? QueryAction { get; set; }
+
+    [SupplyParameterFromQuery(Name = "status")]
+    public string? QueryStatus { get; set; }
+
+    [SupplyParameterFromQuery(Name = "provider")]
+    public string? QueryProvider { get; set; }
+
+    [SupplyParameterFromQuery(Name = "from")]
+    public string? QueryFrom { get; set; }
+
+    [SupplyParameterFromQuery(Name = "to")]
+    public string? QueryTo { get; set; }
+
+    [SupplyParameterFromQuery(Name = "dmin")]
+    public string? QueryDurationMin { get; set; }
+
+    [SupplyParameterFromQuery(Name = "dmax")]
+    public string? QueryDurationMax { get; set; }
+
+    protected override void OnInitialized() => DisplayTime.Changed += OnDisplayTimeChanged;
+
+    public void Dispose() => DisplayTime.Changed -= OnDisplayTimeChanged;
+
+    private void OnDisplayTimeChanged() => InvokeAsync(async () =>
+    {
+        StateHasChanged();
+        if (_grid is not null)
+        {
+            await _grid.ReloadServerData();
+        }
+    });
+
+    protected override void OnParametersSet()
+    {
+        if (_queryApplied)
+        {
+            return;
+        }
+
+        _queryApplied = true;
+        _tool = QueryTool;
+        _action = QueryAction;
+        _status = QueryStatus;
+        _provider = QueryProvider;
+        if (DateTime.TryParse(QueryFrom, out var from))
+        {
+            _fromUtc = from.ToUniversalTime();
+        }
+
+        if (DateTime.TryParse(QueryTo, out var to))
+        {
+            _toUtc = to.ToUniversalTime();
+        }
+
+        if (int.TryParse(QueryDurationMin, out var min))
+        {
+            _durationMin = min;
+        }
+
+        if (int.TryParse(QueryDurationMax, out var max))
+        {
+            _durationMax = max;
+        }
+    }
+
+    private Task OnHours(int hours)
+    {
+        _hours = hours;
+        _fromUtc = null;
+        _toUtc = null;
+        return Task.CompletedTask;
+    }
+
+    private Task ApplyAsync() => _grid?.ReloadServerData() ?? Task.CompletedTask;
+
+    private async Task<GridData<CallLogSummary>> LoadAsync(GridState<CallLogSummary> state, CancellationToken cancellationToken)
+    {
+        var sort = state.SortDefinitions.FirstOrDefault();
+        DateTime? from = _fromUtc ?? (_hours > 0 ? DateTime.UtcNow.AddHours(-_hours) : null);
+        var page = await Queries.SearchAsync(new CallLogQuery
+        {
+            FromUtc = from,
+            ToUtc = _toUtc,
+            Tool = _tool,
+            Provider = string.IsNullOrWhiteSpace(_provider) ? null : _provider.Trim(),
+            Action = _action,
+            Status = _status,
+            DurationMinMs = _durationMin,
+            DurationMaxMs = _durationMax,
+            SortBy = sort?.SortBy,
+            SortDescending = sort?.Descending ?? true,
+            Skip = state.Page * state.PageSize,
+            Take = state.PageSize,
+        }, cancellationToken);
+
+        return new GridData<CallLogSummary>
+        {
+            TotalItems = page.Total,
+            Items = page.Items,
+        };
+    }
+
+    private async Task OnRow(DataGridRowClickEventArgs<CallLogSummary> args)
+    {
+        _detail = await Queries.GetAsync(args.Item.Id);
+    }
+
+    private async Task ConfirmDeleteAllAsync()
+    {
+        var parameters = new DialogParameters<MudMessageBox>
+        {
+            { box => box.Title, L["AuditDeleteAllTitle"].Value },
+            { box => box.Message, L["AuditDeleteAllMessage"].Value },
+            { box => box.YesText, L["AuditDeleteAllConfirm"].Value },
+            { box => box.CancelText, L["AuditDeleteAllCancel"].Value },
+        };
+
+        var dialog = await DialogService.ShowAsync<MudMessageBox>(null, parameters);
+        var dialogResult = await dialog.Result;
+        if (dialogResult is null || dialogResult.Canceled)
+        {
+            return;
+        }
+
+        _busy = true;
+        try
+        {
+            var removed = await AuditAdmin.DeleteAllAsync();
+            _detail = null;
+            if (_grid is not null)
+            {
+                await _grid.ReloadServerData();
+            }
+
+            Snackbar.Add(L["AuditDeleteAllDone", removed], Severity.Success);
+        }
+        finally
+        {
+            _busy = false;
+        }
+    }
+}

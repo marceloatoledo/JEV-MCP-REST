@@ -1,0 +1,4 @@
+# Scripts de container precisam de LF; CRLF quebra o shebang no Linux.
+docker-entrypoint.sh text eol=lf
+*.sh text eol=lf
+src/JavMcp.App/wwwroot/js/*.js text eol=lf

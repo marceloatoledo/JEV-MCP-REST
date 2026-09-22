@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JevMcp.Core\JevMcp.Core.csproj" />
+  </ItemGroup>
+
+  <!-- Transport and serialization are internal; tests exercise their seam. -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="JevMcp.Tests" />
+  </ItemGroup>
+
+</Project>

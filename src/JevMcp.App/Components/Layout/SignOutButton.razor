@@ -1,0 +1,9 @@
+<form method="post" action="/api/session/logout" class="d-flex align-center">
+    <AntiforgeryToken />
+    <MudTooltip Text="@L["SignOut"]">
+        <MudIconButton ButtonType="ButtonType.Submit"
+                       Icon="@Icons.Material.Filled.Logout"
+                       Color="Color.Inherit"
+                       aria-label="@L["SignOut"]" />
+    </MudTooltip>
+</form>

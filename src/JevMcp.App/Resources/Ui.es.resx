@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="NavDashboard" xml:space="preserve"><value>Panel</value></data>
+  <data name="NavAudit" xml:space="preserve"><value>Auditoría</value></data>
+  <data name="NavPlayground" xml:space="preserve"><value>Playground</value></data>
+  <data name="NavApi" xml:space="preserve"><value>API</value></data>
+  <data name="NavReadme" xml:space="preserve"><value>Documentación</value></data>
+  <data name="ReadmeTitle" xml:space="preserve"><value>Documentación</value></data>
+  <data name="ReadmeMissing" xml:space="preserve"><value>No se encontró README.md en esta instalación.</value></data>
+  <data name="NavSettings" xml:space="preserve"><value>Configuración</value></data>
+  <data name="SignOut" xml:space="preserve"><value>Salir</value></data>
+  <data name="AnonymousWarning" xml:space="preserve"><value>El acceso anónimo a /mcp y a la API REST está activado. Cualquier cliente en la red alcanza las tools.</value></data>
+  <data name="UnexpectedError" xml:space="preserve"><value>Ocurrió un error inesperado.</value></data>
+  <data name="Reload" xml:space="preserve"><value>Recargar</value></data>
+  <data name="Language" xml:space="preserve"><value>Idioma</value></data>
+  <data name="LanguageOptionPt" xml:space="preserve"><value>Português</value></data>
+  <data name="LanguageOptionEn" xml:space="preserve"><value>English</value></data>
+  <data name="LanguageOptionEs" xml:space="preserve"><value>Español</value></data>
+  <data name="LoginTitle" xml:space="preserve"><value>Entrar</value></data>
+  <data name="LoginHelp" xml:space="preserve"><value>Entre con el usuario y la contraseña definidos en el entorno o en appsettings.</value></data>
+  <data name="LoginTokenHelp" xml:space="preserve"><value>Use un token de acceso. El valor completo solo aparece al crearlo; si lo perdió, genere otro.</value></data>
+  <data name="LoginInvalid" xml:space="preserve"><value>No fue posible entrar. Verifique las credenciales.</value></data>
+  <data name="LoginUsername" xml:space="preserve"><value>Usuario</value></data>
+  <data name="LoginPassword" xml:space="preserve"><value>Contraseña</value></data>
+  <data name="LoginToken" xml:space="preserve"><value>Token</value></data>
+  <data name="LoginSubmit" xml:space="preserve"><value>Entrar</value></data>
+  <data name="SetupTitle" xml:space="preserve"><value>Configuración inicial</value></data>
+  <data name="SetupHelp" xml:space="preserve"><value>Todavía no hay un token activo. Genere el primero ahora. Se mostrará una sola vez: cópielo y guárdelo antes de salir de esta página.</value></data>
+  <data name="SetupOnce" xml:space="preserve"><value>Este valor no se volverá a mostrar. Perderlo implica generar otro token.</value></data>
+  <data name="SetupGenerate" xml:space="preserve"><value>Generar el primer token</value></data>
+  <data name="SetupDone" xml:space="preserve"><value>La configuración inicial ya se completó.</value></data>
+  <data name="SetupGoDashboard" xml:space="preserve"><value>Ir al panel</value></data>
+  <data name="DashboardTitle" xml:space="preserve"><value>Panel</value></data>
+  <data name="DashboardHelp" xml:space="preserve"><value>Proveedor efectivo, modelo e historial del recorte. Haga clic en los gráficos para filtrar.</value></data>
+  <data name="Hours24" xml:space="preserve"><value>24 h</value></data>
+  <data name="Days7" xml:space="preserve"><value>7 días</value></data>
+  <data name="Days30" xml:space="preserve"><value>30 días</value></data>
+  <data name="ClearFilters" xml:space="preserve"><value>Borrar filtros</value></data>
+  <data name="ViewInAudit" xml:space="preserve"><value>Ver en auditoría</value></data>
+  <data name="Provider" xml:space="preserve"><value>Proveedor</value></data>
+  <data name="Model" xml:space="preserve"><value>Modelo</value></data>
+  <data name="Calls" xml:space="preserve"><value>Llamadas</value></data>
+  <data name="AverageLatency" xml:space="preserve"><value>Latencia media</value></data>
+  <data name="InputTokens" xml:space="preserve"><value>Tokens de entrada</value></data>
+  <data name="OutputTokens" xml:space="preserve"><value>Tokens de salida</value></data>
+  <data name="PeriodCostUsd" xml:space="preserve"><value>Costo estimado (USD)</value></data>
+  <data name="TokenPricing" xml:space="preserve"><value>Tarificación</value></data>
+  <data name="UsdPerMillionTokens" xml:space="preserve"><value>USD por millón de tokens</value></data>
+  <data name="TokenPricingHelp" xml:space="preserve"><value>USD por millón de tokens (entrada + salida). La tabla graba en SQLite al crear, actualizar o eliminar.</value></data>
+  <data name="Update" xml:space="preserve"><value>Actualizar</value></data>
+  <data name="NoPricing" xml:space="preserve"><value>Ningún proveedor tarifado. El costo estimado usa 0,042 hasta que agregue uno.</value></data>
+  <data name="InvalidProviderSlug" xml:space="preserve"><value>El proveedor debe ser un slug en minúsculas (letras, números, _ o -), máximo 32 caracteres.</value></data>
+  <data name="DuplicateProvider" xml:space="preserve"><value>Ya existe tarifa para este proveedor.</value></data>
+  <data name="PricingRemoved" xml:space="preserve"><value>Proveedor eliminado de la tarificación.</value></data>
+  <data name="CostUsd" xml:space="preserve"><value>Costo (USD)</value></data>
+  <data name="Tokens" xml:space="preserve"><value>Tokens</value></data>
+  <data name="TotalTokens" xml:space="preserve"><value>Tokens totales</value></data>
+  <data name="SaveImage" xml:space="preserve"><value>Guardar imagen</value></data>
+  <data name="TokensCostLine" xml:space="preserve"><value>Tokens: {0} in · {1} out · ${2} USD</value></data>
+  <data name="NotConfigured" xml:space="preserve"><value>no configurado</value></data>
+  <data name="NoProviderCredentials" xml:space="preserve"><value>No hay ninguna credencial de proveedor.</value></data>
+  <data name="EmptyPeriod" xml:space="preserve"><value>Ninguna llamada en este período. El panel espera el historial; la falta de datos no es un error.</value></data>
+  <data name="ChartConsumption" xml:space="preserve"><value>Consumo en el tiempo</value></data>
+  <data name="ChartVolume" xml:space="preserve"><value>Llamadas y latencia en el tiempo</value></data>
+  <data name="ChartActions" xml:space="preserve"><value>Acciones resultantes</value></data>
+  <data name="ChartStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="ChartTools" xml:space="preserve"><value>Consumo por tool</value></data>
+  <data name="ChartLatency" xml:space="preserve"><value>Latencia (ms)</value></data>
+  <data name="ChartHeatmap" xml:space="preserve"><value>Tool × acción</value></data>
+  <data name="EmptyAction" xml:space="preserve"><value>(sin acción)</value></data>
+  <data name="AuditTitle" xml:space="preserve"><value>Auditoría</value></data>
+  <data name="AuditHelp" xml:space="preserve"><value>Historial de las llamadas al modelo. Filtro y página se resuelven en el servidor.</value></data>
+  <data name="AuditDeleteAll" xml:space="preserve"><value>Borrar todo el historial</value></data>
+  <data name="AuditDeleteAllTitle" xml:space="preserve"><value>¿Borrar toda la auditoría?</value></data>
+  <data name="AuditDeleteAllMessage" xml:space="preserve"><value>Elimina permanentemente todos los registros de llamadas. No se puede deshacer.</value></data>
+  <data name="AuditDeleteAllConfirm" xml:space="preserve"><value>Borrar todo</value></data>
+  <data name="AuditDeleteAllCancel" xml:space="preserve"><value>Cancelar</value></data>
+  <data name="AuditDeleteAllDone" xml:space="preserve"><value>{0} registro(s) eliminado(s) de la auditoría.</value></data>
+  <data name="AuditPeriodFromPanel" xml:space="preserve"><value>Período recibido del panel: {0} – {1}</value></data>
+  <data name="Tool" xml:space="preserve"><value>Tool</value></data>
+  <data name="Action" xml:space="preserve"><value>Acción</value></data>
+  <data name="Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Period" xml:space="preserve"><value>Período</value></data>
+  <data name="PeriodAll" xml:space="preserve"><value>Todo</value></data>
+  <data name="Filter" xml:space="preserve"><value>Filtrar</value></data>
+  <data name="Instant" xml:space="preserve"><value>Instante</value></data>
+  <data name="Milliseconds" xml:space="preserve"><value>ms</value></data>
+  <data name="Token" xml:space="preserve"><value>Token</value></data>
+  <data name="NoCalls" xml:space="preserve"><value>Todavía no hay llamadas en este filtro. Cuando un agente o el playground ejecute una tool, aparece aquí.</value></data>
+  <data name="CallId" xml:space="preserve"><value>Llamada {0}</value></data>
+  <data name="ActionStatusLine" xml:space="preserve"><value>Acción: {0} · Status: {1}</value></data>
+  <data name="TokenLine" xml:space="preserve"><value>Token: {0} {1}</value></data>
+  <data name="RequestPayload" xml:space="preserve"><value>Payload de la solicitud</value></data>
+  <data name="ResponsePayload" xml:space="preserve"><value>Payload de la respuesta</value></data>
+  <data name="NotCapturedConfig" xml:space="preserve"><value>No capturado. Active la captura en Configuración si necesita el documento.</value></data>
+  <data name="NotCaptured" xml:space="preserve"><value>No capturado.</value></data>
+  <data name="PlaygroundTitle" xml:space="preserve"><value>Playground</value></data>
+  <data name="PlaygroundHelp" xml:space="preserve"><value>Ejecuta el mismo servicio de las tools MCP, sin pasar por el transporte. Ajuste los thresholds y compare la acción.</value></data>
+  <data name="Run" xml:space="preserve"><value>Ejecutar</value></data>
+  <data name="PlaygroundResult" xml:space="preserve"><value>Resultado</value></data>
+  <data name="PlaygroundInvalid" xml:space="preserve"><value>Respuesta inválida del modelo</value></data>
+  <data name="PlaygroundFailed" xml:space="preserve"><value>Fallo</value></data>
+  <data name="PlaygroundAction" xml:space="preserve"><value>· acción {0}</value></data>
+  <data name="FieldClaimsLines" xml:space="preserve"><value>claims (una por línea)</value></data>
+  <data name="FieldEvidenceJson" xml:space="preserve"><value>evidence (JSON)</value></data>
+  <data name="FieldCandidatesJson" xml:space="preserve"><value>candidates (JSON)</value></data>
+  <data name="FieldItemsJson" xml:space="preserve"><value>items (JSON)</value></data>
+  <data name="FieldClassesJson" xml:space="preserve"><value>classes (JSON)</value></data>
+  <data name="FieldRequirementsLines" xml:space="preserve"><value>requirements (una por línea)</value></data>
+  <data name="FieldAspectsLines" xml:space="preserve"><value>aspects (una por línea)</value></data>
+  <data name="FieldFieldsJson" xml:space="preserve"><value>fields (JSON)</value></data>
+  <data name="SettingsTitle" xml:space="preserve"><value>Configuración</value></data>
+  <data name="SettingsHelp" xml:space="preserve"><value>Las credenciales solo aparecen como presencia y prefijo enmascarado. Retención, captura y acceso anónimo valen sin reinicio.</value></data>
+  <data name="ProviderSection" xml:space="preserve"><value>Proveedor</value></data>
+  <data name="ModelLine" xml:space="preserve"><value>Modelo:</value></data>
+  <data name="EffectiveProvider" xml:space="preserve"><value>Proveedor efectivo: {0}</value></data>
+  <data name="EnvVars" xml:space="preserve"><value>Variables de entorno</value></data>
+  <data name="Variable" xml:space="preserve"><value>Variable</value></data>
+  <data name="State" xml:space="preserve"><value>Estado</value></data>
+  <data name="Value" xml:space="preserve"><value>Valor</value></data>
+  <data name="Present" xml:space="preserve"><value>presente</value></data>
+  <data name="Absent" xml:space="preserve"><value>ausente</value></data>
+  <data name="Operation" xml:space="preserve"><value>Operación</value></data>
+  <data name="RetentionDays" xml:space="preserve"><value>Retención (días)</value></data>
+  <data name="RetentionHelp" xml:space="preserve"><value>Cero desactiva la limpieza. Vale en la próxima depuración.</value></data>
+  <data name="CapturePayloads" xml:space="preserve"><value>Capturar payloads en el historial</value></data>
+  <data name="AnonymousMcp" xml:space="preserve"><value>Acceso anónimo a /mcp y a la API REST</value></data>
+  <data name="DisplayTimeZone" xml:space="preserve"><value>Zona horaria de la interfaz</value></data>
+  <data name="DisplayTimeZoneHelp" xml:space="preserve"><value>Fechas y horas del historial, panel y tokens.</value></data>
+  <data name="Save" xml:space="preserve"><value>Guardar</value></data>
+  <data name="AccessTokens" xml:space="preserve"><value>Tokens de acceso</value></data>
+  <data name="TokensHelp" xml:space="preserve"><value>Cada token abre /mcp, la API REST y el admin. El valor completo solo aparece al crearlo.</value></data>
+  <data name="CopyNow" xml:space="preserve"><value>Cópielo ahora. Este valor no se volverá a mostrar.</value></data>
+  <data name="Name" xml:space="preserve"><value>Nombre</value></data>
+  <data name="Create" xml:space="preserve"><value>Crear</value></data>
+  <data name="NoTokens" xml:space="preserve"><value>Ningún token registrado.</value></data>
+  <data name="Prefix" xml:space="preserve"><value>Prefijo</value></data>
+  <data name="Created" xml:space="preserve"><value>Creado</value></data>
+  <data name="LastUsed" xml:space="preserve"><value>Último uso</value></data>
+  <data name="Revoke" xml:space="preserve"><value>Revocar</value></data>
+  <data name="Reactivate" xml:space="preserve"><value>Reactivar</value></data>
+  <data name="Active" xml:space="preserve"><value>activo</value></data>
+  <data name="Revoked" xml:space="preserve"><value>revocado</value></data>
+  <data name="Remove" xml:space="preserve"><value>Eliminar</value></data>
+  <data name="CannotDeleteLastToken" xml:space="preserve"><value>No se puede eliminar el único token activo en una dirección pública sin otra forma de acceso. Configure usuario y contraseña de admin (JEVMCP_ADMIN_USERNAME / JEVMCP_ADMIN_PASSWORD), habilite el acceso anónimo a /mcp o cree un token de reemplazo antes.</value></data>
+  <data name="TokenRemoved" xml:space="preserve"><value>Token eliminado.</value></data>
+  <data name="SettingsSaved" xml:space="preserve"><value>Configuración guardada. La retención vale en la próxima depuración.</value></data>
+  <data name="DefaultTokenName" xml:space="preserve"><value>Agente</value></data>
+  <data name="NotFoundTitle" xml:space="preserve"><value>No encontrado</value></data>
+  <data name="NotFoundBody" xml:space="preserve"><value>La página solicitada no existe.</value></data>
+  <data name="ErrorTitle" xml:space="preserve"><value>Error</value></data>
+  <data name="ErrorBody" xml:space="preserve"><value>Ocurrió un error al procesar la solicitud.</value></data>
+  <data name="RequestId" xml:space="preserve"><value>Identificador de la solicitud:</value></data>
+  <data name="ReconnectFirst" xml:space="preserve"><value>Reconectando al servidor...</value></data>
+  <data name="ReconnectRetryBefore" xml:space="preserve"><value>Fallo al reconectar... reintento en</value></data>
+  <data name="ReconnectRetryAfter" xml:space="preserve"><value>segundos.</value></data>
+  <data name="ReconnectFailed" xml:space="preserve"><value>Fallo al reconectar. Reintente o recargue la página.</value></data>
+  <data name="Retry" xml:space="preserve"><value>Reintentar</value></data>
+  <data name="SessionPaused" xml:space="preserve"><value>El servidor pausó la sesión.</value></data>
+  <data name="ResumeFailed" xml:space="preserve"><value>Fallo al reanudar la sesión. Reintente o recargue la página.</value></data>
+  <data name="Resume" xml:space="preserve"><value>Reanudar</value></data>
+  <data name="PlaygroundSampleData" xml:space="preserve"><value>Datos de ejemplo</value></data>
+  <data name="PlaygroundExampleInfoAria" xml:space="preserve"><value>Explicación de este ejemplo</value></data>
+  <data name="PlaygroundExampleSectionScenario" xml:space="preserve"><value>Escenario del ejemplo</value></data>
+  <data name="PlaygroundExampleSectionFields" xml:space="preserve"><value>Campos del formulario</value></data>
+  <data name="PlaygroundExampleSectionApplication" xml:space="preserve"><value>Uso práctico</value></data>
+  <data name="PlaygroundExampleClose" xml:space="preserve"><value>Entendido</value></data>
+  <data name="PlaygroundExample_jev_extract_Title" xml:space="preserve"><value>jev_extract</value></data>
+  <data name="PlaygroundExample_jev_extract_Summary" xml:space="preserve"><value>Factura ficticia con número, correo, varios importes en USD y referencia de pago. El regex encuentra candidatos; Jev elige qué substring es el total adeudado (entre subtotal, impuesto, total y nota de presupuesto) sin inventar texto.</value></data>
+  <data name="PlaygroundExample_jev_extract_Fields" xml:space="preserve"><value>document|Texto completo donde los patrones regex buscan trozos literales (la factura simulada).
+fields|Array JSON: cada objeto tiene id, pattern (regex .NET) y description (qué debe reconocer el modelo como valor correcto).
+purpose|Contexto de negocio compartido por todos los campos (ej. contabilidad de cuentas por pagar).
+auto_accept|Probabilidad mínima en el candidato elegido para estado automático sin revisión humana.
+minimum_margin|Diferencia mínima entre el 1.º y 2.º candidato para aceptar la elección automáticamente.</value></data>
+  <data name="PlaygroundExample_jev_extract_Application" xml:space="preserve"><value>Cuentas por pagar, conciliación de facturas o extracción de campos de correo/PDF cuando usted define los patrones y el modelo solo desambigua coincidencias literales.</value></data>
+  <data name="PlaygroundExample_jev_screen_Title" xml:space="preserve"><value>jev_screen</value></data>
+  <data name="PlaygroundExample_jev_screen_Summary" xml:space="preserve"><value>Párrafo neutro de documentación. El modelo estima riesgo de prompt injection, contenido sustantivo y (con purpose) relevancia; block_at y review_at se convierten en pass, review o block.</value></data>
+  <data name="PlaygroundExample_jev_screen_Fields" xml:space="preserve"><value>text|Contenido externo que podría entrar al contexto del agente (web, adjunto, salida de herramienta).
+purpose|Para qué se usaría el texto; mejora relevancia si se indica (puede quedar vacío).
+block_at|Si la probabilidad de injection supera este valor, la recomendación tiende a block.
+review_at|Por encima de este valor (y debajo de block_at), la recomendación tiende a review en lugar de pass.</value></data>
+  <data name="PlaygroundExample_jev_screen_Application" xml:space="preserve"><value>Guardrail antes de que texto web, tickets o adjuntos lleguen al prompt del LLM.</value></data>
+  <data name="PlaygroundExample_jev_verify_Title" xml:space="preserve"><value>jev_verify</value></data>
+  <data name="PlaygroundExample_jev_verify_Summary" xml:space="preserve"><value>Una afirmación (“El cielo es azul”) frente a un pasaje de evidencia. Jev devuelve veredicto por claim, distribución de probabilidad y si la confianza alcanza auto_accept.</value></data>
+  <data name="PlaygroundExample_jev_verify_Fields" xml:space="preserve"><value>claims|Una afirmación por línea a contrastar con la evidencia.
+evidence|Material de apoyo como cadena entre comillas o JSON aceptado por la API.
+auto_accept|Confianza mínima para marcar el veredicto como automático en lugar de review.</value></data>
+  <data name="PlaygroundExample_jev_verify_Application" xml:space="preserve"><value>Comprobar citas en informes, respuestas de soporte o resúmenes de IA antes de publicar.</value></data>
+  <data name="PlaygroundExample_jev_find_Title" xml:space="preserve"><value>jev_find</value></data>
+  <data name="PlaygroundExample_jev_find_Summary" xml:space="preserve"><value>Consulta “authentication” sobre dos fragmentos (login con cookies vs. pisos del edificio). Ordena relevancia sin embeddings e indica si algún candidato responde de verdad.</value></data>
+  <data name="PlaygroundExample_jev_find_Fields" xml:space="preserve"><value>query|Pregunta en lenguaje natural que los candidatos deben abordar.
+candidates|JSON con id y text por ítem — pasajes entre los que elegir.
+top_k|Cuántos mejores candidatos devolver (1–50).</value></data>
+  <data name="PlaygroundExample_jev_find_Application" xml:space="preserve"><value>Elegir el mejor fragmento de documentación, ticket o FAQ para una pregunta del usuario o del agente.</value></data>
+  <data name="PlaygroundExample_jev_rerank_Title" xml:space="preserve"><value>jev_rerank</value></data>
+  <data name="PlaygroundExample_jev_rerank_Summary" xml:space="preserve"><value>Los mismos candidatos que find, pero todos puntuados en una llamada y devueltos ordenados por relevancia — útil para ver el ranking completo.</value></data>
+  <data name="PlaygroundExample_jev_rerank_Fields" xml:space="preserve"><value>query|Mismo rol que en find: intención de búsqueda en lenguaje natural.
+candidates|Lista completa a reordenar; cada entrada necesita id y text.
+top_k|Límite de cuántos ítems ordenados aparecen en la respuesta.</value></data>
+  <data name="PlaygroundExample_jev_rerank_Application" xml:space="preserve"><value>Reordenar resultados de búsqueda lexical o listas de snippets antes del contexto RAG.</value></data>
+  <data name="PlaygroundExample_jev_classify_Title" xml:space="preserve"><value>jev_classify</value></data>
+  <data name="PlaygroundExample_jev_classify_Summary" xml:space="preserve"><value>Un ítem de ticket (“Reset the password by email”) y dos clases (auth vs. other). Asigna etiqueta con política auto vs. review.</value></data>
+  <data name="PlaygroundExample_jev_classify_Fields" xml:space="preserve"><value>items|JSON con id y text — lo que se clasifica (uno o varios por llamada).
+classes|Catálogo compartido con id y description por etiqueta.
+purpose|Contexto opcional de la tarea (ej. enrutado de soporte).
+auto_accept|Probabilidad mínima en la clase elegida para decisión automática.
+minimum_margin|Margen mínimo entre 1.ª y 2.ª clase para evitar auto en empate.</value></data>
+  <data name="PlaygroundExample_jev_classify_Application" xml:space="preserve"><value>Triaje de tickets, enrutado de correo o categorización en lote con etiquetas fijas.</value></data>
+  <data name="PlaygroundExample_jev_decide_Title" xml:space="preserve"><value>jev_decide</value></data>
+  <data name="PlaygroundExample_jev_decide_Summary" xml:space="preserve"><value>“¿Qué opción enviar?” con evidencia (costo vs. seguridad), prioridades y dos alternativas nombradas.</value></data>
+  <data name="PlaygroundExample_jev_decide_Fields" xml:space="preserve"><value>decision|Pregunta cerrada que el modelo debe resolver (2–6 opciones en candidates).
+evidence|Hechos o argumentos que sustentan la elección.
+priorities|Criterios explícitos (ej. seguridad antes que costo).
+candidates|JSON con id y description por alternativa válida.
+requirements|Opcional: una restricción por línea que cualquier opción debe cumplir.</value></data>
+  <data name="PlaygroundExample_jev_decide_Application" xml:space="preserve"><value>Elecciones de producto, política o plan del agente entre pocas opciones con texto de apoyo.</value></data>
+  <data name="PlaygroundExample_jev_compare_Title" xml:space="preserve"><value>jev_compare</value></data>
+  <data name="PlaygroundExample_jev_compare_Summary" xml:space="preserve"><value>Dos pasajes sobre reintentos (tres intentos vs. ninguno). Clasifica la relación factual: same_fact, contradicts o different_facts.</value></data>
+  <data name="PlaygroundExample_jev_compare_Fields" xml:space="preserve"><value>passage_a|Primer texto a comparar.
+passage_b|Segundo texto a comparar.
+aspects|Opcional: un aspecto por línea para juicios más finos (vacío usa comparación global).
+purpose|Contexto opcional del motivo de la comparación.
+auto_accept|Confianza mínima para aceptar el veredicto automáticamente.
+minimum_margin|Margen mínimo entre hipótesis rivales.</value></data>
+  <data name="PlaygroundExample_jev_compare_Application" xml:space="preserve"><value>Detectar inconsistencia entre versiones de documentación, salida del modelo y fuente, o dos extracciones.</value></data>
+  <data name="PlaygroundExample_jev_review_Title" xml:space="preserve"><value>jev_review</value></data>
+  <data name="PlaygroundExample_jev_review_Summary" xml:space="preserve"><value>Pedido de feature (“Add a logout button”) y diff mínimo que añade “Logout”. Evalúa el patch frente al pedido y safe_to_apply.</value></data>
+  <data name="PlaygroundExample_jev_review_Fields" xml:space="preserve"><value>request|Lo que pidió el usuario o el ticket (alcance esperado).
+diff|Patch unificado o fragmento de cambio propuesto.
+tests|Opcional: descripción de pruebas o evidencia de validación.
+auto_accept|Umbral para aprobar automáticamente el patch.
+review_at|Por debajo de auto, por encima de este valor tiende a review.
+composite_floor|Piso en la nota compuesta de la rúbrica antes de considerar auto.</value></data>
+  <data name="PlaygroundExample_jev_review_Application" xml:space="preserve"><value>Revisar PRs o patches del agente antes de aplicarlos al repositorio.</value></data>
+  <data name="PlaygroundExample_jev_gate_Title" xml:space="preserve"><value>jev_gate</value></data>
+  <data name="PlaygroundExample_jev_gate_Summary" xml:space="preserve"><value>Combina revisión del diff con verificación de claims de conclusión contra evidencia — puerta de fin de tarea del agente.</value></data>
+  <data name="PlaygroundExample_jev_gate_Fields" xml:space="preserve"><value>request|Pedido original de la tarea.
+diff|Cambio propuesto a validar.
+claims|Una afirmación de conclusión por línea (ej. “se añadió logout”).
+evidence|Material que sustenta o refuta los claims (JSON o cadena).
+tests|Opcional: pruebas mencionadas o ejecutadas.
+auto_accept|Umbral de confianza para cerrar la tarea automáticamente.
+review_at|Banda de revisión humana entre auto y fallo.
+composite_floor|Piso en la puntuación agregada del gate.</value></data>
+  <data name="PlaygroundExample_jev_gate_Application" xml:space="preserve"><value>Impedir “tarea hecha” hasta que el patch sea aceptable y las afirmaciones de entrega estén respaldadas.</value></data>
+</root>

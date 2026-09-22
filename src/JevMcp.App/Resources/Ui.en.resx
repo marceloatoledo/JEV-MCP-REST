@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="NavDashboard" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="NavAudit" xml:space="preserve"><value>Audit</value></data>
+  <data name="NavPlayground" xml:space="preserve"><value>Playground</value></data>
+  <data name="NavApi" xml:space="preserve"><value>API</value></data>
+  <data name="NavReadme" xml:space="preserve"><value>Documentation</value></data>
+  <data name="ReadmeTitle" xml:space="preserve"><value>Documentation</value></data>
+  <data name="ReadmeMissing" xml:space="preserve"><value>README.md was not found in this installation.</value></data>
+  <data name="NavSettings" xml:space="preserve"><value>Settings</value></data>
+  <data name="SignOut" xml:space="preserve"><value>Sign out</value></data>
+  <data name="AnonymousWarning" xml:space="preserve"><value>Anonymous access to /mcp and the REST API is on. Any client on the network can reach the tools.</value></data>
+  <data name="UnexpectedError" xml:space="preserve"><value>An unexpected error occurred.</value></data>
+  <data name="Reload" xml:space="preserve"><value>Reload</value></data>
+  <data name="Language" xml:space="preserve"><value>Language</value></data>
+  <data name="LanguageOptionPt" xml:space="preserve"><value>Português</value></data>
+  <data name="LanguageOptionEn" xml:space="preserve"><value>English</value></data>
+  <data name="LanguageOptionEs" xml:space="preserve"><value>Español</value></data>
+  <data name="LoginTitle" xml:space="preserve"><value>Sign in</value></data>
+  <data name="LoginHelp" xml:space="preserve"><value>Sign in with the username and password from the environment or appsettings.</value></data>
+  <data name="LoginTokenHelp" xml:space="preserve"><value>Use an access token. The full value is shown only at creation; if you lost it, issue another.</value></data>
+  <data name="LoginInvalid" xml:space="preserve"><value>Could not sign in. Check your credentials.</value></data>
+  <data name="LoginUsername" xml:space="preserve"><value>Username</value></data>
+  <data name="LoginPassword" xml:space="preserve"><value>Password</value></data>
+  <data name="LoginToken" xml:space="preserve"><value>Token</value></data>
+  <data name="LoginSubmit" xml:space="preserve"><value>Sign in</value></data>
+  <data name="SetupTitle" xml:space="preserve"><value>First-time setup</value></data>
+  <data name="SetupHelp" xml:space="preserve"><value>There is no active token yet. Generate the first one now. It will be shown only once: copy and store it before leaving this page.</value></data>
+  <data name="SetupOnce" xml:space="preserve"><value>This value will not be shown again. Losing it means generating another token.</value></data>
+  <data name="SetupGenerate" xml:space="preserve"><value>Generate the first token</value></data>
+  <data name="SetupDone" xml:space="preserve"><value>First-time setup is already done.</value></data>
+  <data name="SetupGoDashboard" xml:space="preserve"><value>Go to dashboard</value></data>
+  <data name="DashboardTitle" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="DashboardHelp" xml:space="preserve"><value>Effective provider, model, and history for the current window. Click the charts to filter.</value></data>
+  <data name="Hours24" xml:space="preserve"><value>24 h</value></data>
+  <data name="Days7" xml:space="preserve"><value>7 days</value></data>
+  <data name="Days30" xml:space="preserve"><value>30 days</value></data>
+  <data name="ClearFilters" xml:space="preserve"><value>Clear filters</value></data>
+  <data name="ViewInAudit" xml:space="preserve"><value>View in audit</value></data>
+  <data name="Provider" xml:space="preserve"><value>Provider</value></data>
+  <data name="Model" xml:space="preserve"><value>Model</value></data>
+  <data name="Calls" xml:space="preserve"><value>Calls</value></data>
+  <data name="AverageLatency" xml:space="preserve"><value>Average latency</value></data>
+  <data name="InputTokens" xml:space="preserve"><value>Input tokens</value></data>
+  <data name="OutputTokens" xml:space="preserve"><value>Output tokens</value></data>
+  <data name="PeriodCostUsd" xml:space="preserve"><value>Estimated cost (USD)</value></data>
+  <data name="TokenPricing" xml:space="preserve"><value>Token pricing</value></data>
+  <data name="UsdPerMillionTokens" xml:space="preserve"><value>USD per million tokens</value></data>
+  <data name="TokenPricingHelp" xml:space="preserve"><value>USD per million tokens (input + output). The grid writes to SQLite when you create, update, or remove a provider.</value></data>
+  <data name="Update" xml:space="preserve"><value>Update</value></data>
+  <data name="NoPricing" xml:space="preserve"><value>No priced providers. Estimated cost uses 0.042 until you add one.</value></data>
+  <data name="InvalidProviderSlug" xml:space="preserve"><value>The provider must be a lowercase slug (letters, digits, _ or -), at most 32 characters.</value></data>
+  <data name="DuplicateProvider" xml:space="preserve"><value>A rate already exists for this provider.</value></data>
+  <data name="PricingRemoved" xml:space="preserve"><value>Provider removed from pricing.</value></data>
+  <data name="CostUsd" xml:space="preserve"><value>Cost (USD)</value></data>
+  <data name="Tokens" xml:space="preserve"><value>Tokens</value></data>
+  <data name="TotalTokens" xml:space="preserve"><value>Total tokens</value></data>
+  <data name="SaveImage" xml:space="preserve"><value>Save image</value></data>
+  <data name="TokensCostLine" xml:space="preserve"><value>Tokens: {0} in · {1} out · ${2} USD</value></data>
+  <data name="NotConfigured" xml:space="preserve"><value>not configured</value></data>
+  <data name="NoProviderCredentials" xml:space="preserve"><value>No provider credential is present.</value></data>
+  <data name="EmptyPeriod" xml:space="preserve"><value>No calls in this period. The dashboard waits on history; missing data is not an error.</value></data>
+  <data name="ChartConsumption" xml:space="preserve"><value>Consumption over time</value></data>
+  <data name="ChartVolume" xml:space="preserve"><value>Calls and latency over time</value></data>
+  <data name="ChartActions" xml:space="preserve"><value>Resulting actions</value></data>
+  <data name="ChartStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="ChartTools" xml:space="preserve"><value>Consumption by tool</value></data>
+  <data name="ChartLatency" xml:space="preserve"><value>Latency (ms)</value></data>
+  <data name="ChartHeatmap" xml:space="preserve"><value>Tool × action</value></data>
+  <data name="EmptyAction" xml:space="preserve"><value>(no action)</value></data>
+  <data name="AuditTitle" xml:space="preserve"><value>Audit</value></data>
+  <data name="AuditHelp" xml:space="preserve"><value>History of model calls. Filters and paging are resolved on the server.</value></data>
+  <data name="AuditDeleteAll" xml:space="preserve"><value>Delete entire history</value></data>
+  <data name="AuditDeleteAllTitle" xml:space="preserve"><value>Delete all audit records?</value></data>
+  <data name="AuditDeleteAllMessage" xml:space="preserve"><value>Permanently removes every logged call. This cannot be undone.</value></data>
+  <data name="AuditDeleteAllConfirm" xml:space="preserve"><value>Delete all</value></data>
+  <data name="AuditDeleteAllCancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="AuditDeleteAllDone" xml:space="preserve"><value>Removed {0} audit record(s).</value></data>
+  <data name="AuditPeriodFromPanel" xml:space="preserve"><value>Window received from the dashboard: {0} – {1}</value></data>
+  <data name="Tool" xml:space="preserve"><value>Tool</value></data>
+  <data name="Action" xml:space="preserve"><value>Action</value></data>
+  <data name="Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Period" xml:space="preserve"><value>Period</value></data>
+  <data name="PeriodAll" xml:space="preserve"><value>All</value></data>
+  <data name="Filter" xml:space="preserve"><value>Filter</value></data>
+  <data name="Instant" xml:space="preserve"><value>Instant</value></data>
+  <data name="Milliseconds" xml:space="preserve"><value>ms</value></data>
+  <data name="Token" xml:space="preserve"><value>Token</value></data>
+  <data name="NoCalls" xml:space="preserve"><value>There are no calls in this filter yet. When an agent or the playground runs a tool, it shows up here.</value></data>
+  <data name="CallId" xml:space="preserve"><value>Call {0}</value></data>
+  <data name="ActionStatusLine" xml:space="preserve"><value>Action: {0} · Status: {1}</value></data>
+  <data name="TokenLine" xml:space="preserve"><value>Token: {0} {1}</value></data>
+  <data name="RequestPayload" xml:space="preserve"><value>Request payload</value></data>
+  <data name="ResponsePayload" xml:space="preserve"><value>Response payload</value></data>
+  <data name="NotCapturedConfig" xml:space="preserve"><value>Not captured. Turn capture on in Settings if you need the document.</value></data>
+  <data name="NotCaptured" xml:space="preserve"><value>Not captured.</value></data>
+  <data name="PlaygroundTitle" xml:space="preserve"><value>Playground</value></data>
+  <data name="PlaygroundHelp" xml:space="preserve"><value>Runs the same service as the MCP tools, without going through the transport. Adjust the thresholds and compare the action.</value></data>
+  <data name="Run" xml:space="preserve"><value>Run</value></data>
+  <data name="PlaygroundResult" xml:space="preserve"><value>Result</value></data>
+  <data name="PlaygroundInvalid" xml:space="preserve"><value>Invalid model response</value></data>
+  <data name="PlaygroundFailed" xml:space="preserve"><value>Failed</value></data>
+  <data name="PlaygroundAction" xml:space="preserve"><value>· action {0}</value></data>
+  <data name="FieldClaimsLines" xml:space="preserve"><value>claims (one per line)</value></data>
+  <data name="FieldEvidenceJson" xml:space="preserve"><value>evidence (JSON)</value></data>
+  <data name="FieldCandidatesJson" xml:space="preserve"><value>candidates (JSON)</value></data>
+  <data name="FieldItemsJson" xml:space="preserve"><value>items (JSON)</value></data>
+  <data name="FieldClassesJson" xml:space="preserve"><value>classes (JSON)</value></data>
+  <data name="FieldRequirementsLines" xml:space="preserve"><value>requirements (one per line)</value></data>
+  <data name="FieldAspectsLines" xml:space="preserve"><value>aspects (one per line)</value></data>
+  <data name="FieldFieldsJson" xml:space="preserve"><value>fields (JSON)</value></data>
+  <data name="SettingsTitle" xml:space="preserve"><value>Settings</value></data>
+  <data name="SettingsHelp" xml:space="preserve"><value>Credentials appear only as presence and a masked prefix. Retention, capture, and anonymous access take effect without a restart.</value></data>
+  <data name="ProviderSection" xml:space="preserve"><value>Provider</value></data>
+  <data name="ModelLine" xml:space="preserve"><value>Model:</value></data>
+  <data name="EffectiveProvider" xml:space="preserve"><value>Effective provider: {0}</value></data>
+  <data name="EnvVars" xml:space="preserve"><value>Environment variables</value></data>
+  <data name="Variable" xml:space="preserve"><value>Variable</value></data>
+  <data name="State" xml:space="preserve"><value>State</value></data>
+  <data name="Value" xml:space="preserve"><value>Value</value></data>
+  <data name="Present" xml:space="preserve"><value>present</value></data>
+  <data name="Absent" xml:space="preserve"><value>absent</value></data>
+  <data name="Operation" xml:space="preserve"><value>Operations</value></data>
+  <data name="RetentionDays" xml:space="preserve"><value>Retention (days)</value></data>
+  <data name="RetentionHelp" xml:space="preserve"><value>Zero disables purge. It takes effect on the next cleanup.</value></data>
+  <data name="CapturePayloads" xml:space="preserve"><value>Capture payloads in history</value></data>
+  <data name="AnonymousMcp" xml:space="preserve"><value>Anonymous access to /mcp and the REST API</value></data>
+  <data name="DisplayTimeZone" xml:space="preserve"><value>Display time zone</value></data>
+  <data name="DisplayTimeZoneHelp" xml:space="preserve"><value>Timestamps in audit, dashboard, and tokens.</value></data>
+  <data name="Save" xml:space="preserve"><value>Save</value></data>
+  <data name="AccessTokens" xml:space="preserve"><value>Access tokens</value></data>
+  <data name="TokensHelp" xml:space="preserve"><value>Each token opens /mcp, the REST API, and the admin. The full value is shown only at creation.</value></data>
+  <data name="CopyNow" xml:space="preserve"><value>Copy it now. This value will not be shown again.</value></data>
+  <data name="Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Create" xml:space="preserve"><value>Create</value></data>
+  <data name="NoTokens" xml:space="preserve"><value>No tokens registered.</value></data>
+  <data name="Prefix" xml:space="preserve"><value>Prefix</value></data>
+  <data name="Created" xml:space="preserve"><value>Created</value></data>
+  <data name="LastUsed" xml:space="preserve"><value>Last used</value></data>
+  <data name="Revoke" xml:space="preserve"><value>Revoke</value></data>
+  <data name="Reactivate" xml:space="preserve"><value>Reactivate</value></data>
+  <data name="Active" xml:space="preserve"><value>active</value></data>
+  <data name="Revoked" xml:space="preserve"><value>revoked</value></data>
+  <data name="Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="CannotDeleteLastToken" xml:space="preserve"><value>Cannot remove the only active token on a public address without another way in. Set admin username and password (JEVMCP_ADMIN_USERNAME / JEVMCP_ADMIN_PASSWORD), enable anonymous /mcp access, or create a replacement token first.</value></data>
+  <data name="TokenRemoved" xml:space="preserve"><value>Token removed.</value></data>
+  <data name="SettingsSaved" xml:space="preserve"><value>Settings saved. Retention takes effect on the next cleanup.</value></data>
+  <data name="DefaultTokenName" xml:space="preserve"><value>Agent</value></data>
+  <data name="NotFoundTitle" xml:space="preserve"><value>Not found</value></data>
+  <data name="NotFoundBody" xml:space="preserve"><value>The requested page does not exist.</value></data>
+  <data name="ErrorTitle" xml:space="preserve"><value>Error</value></data>
+  <data name="ErrorBody" xml:space="preserve"><value>An error occurred while processing the request.</value></data>
+  <data name="RequestId" xml:space="preserve"><value>Request identifier:</value></data>
+  <data name="ReconnectFirst" xml:space="preserve"><value>Rejoining the server...</value></data>
+  <data name="ReconnectRetryBefore" xml:space="preserve"><value>Rejoin failed... trying again in</value></data>
+  <data name="ReconnectRetryAfter" xml:space="preserve"><value>seconds.</value></data>
+  <data name="ReconnectFailed" xml:space="preserve"><value>Failed to rejoin. Please retry or reload the page.</value></data>
+  <data name="Retry" xml:space="preserve"><value>Retry</value></data>
+  <data name="SessionPaused" xml:space="preserve"><value>The session has been paused by the server.</value></data>
+  <data name="ResumeFailed" xml:space="preserve"><value>Failed to resume the session. Please retry or reload the page.</value></data>
+  <data name="Resume" xml:space="preserve"><value>Resume</value></data>
+  <data name="PlaygroundSampleData" xml:space="preserve"><value>Sample data</value></data>
+  <data name="PlaygroundExampleInfoAria" xml:space="preserve"><value>About this example</value></data>
+  <data name="PlaygroundExampleSectionScenario" xml:space="preserve"><value>Example scenario</value></data>
+  <data name="PlaygroundExampleSectionFields" xml:space="preserve"><value>Form fields</value></data>
+  <data name="PlaygroundExampleSectionApplication" xml:space="preserve"><value>Practical use</value></data>
+  <data name="PlaygroundExampleClose" xml:space="preserve"><value>Got it</value></data>
+  <data name="PlaygroundExample_jev_extract_Title" xml:space="preserve"><value>jev_extract</value></data>
+  <data name="PlaygroundExample_jev_extract_Summary" xml:space="preserve"><value>Fictional invoice with ID, billing email, several USD amounts, and a payment reference. Regex finds candidates; Jev picks which substring is the amount due (among subtotal, tax, total, and budget note) without inventing text.</value></data>
+  <data name="PlaygroundExample_jev_extract_Fields" xml:space="preserve"><value>document|Full text where regex patterns search for literal spans (the sample invoice).
+fields|JSON array: each object has id (stable name), pattern (.NET regex), and description (what the model should treat as the correct value).
+purpose|Shared business context for all fields (e.g. accounts payable posting).
+auto_accept|Minimum probability on the chosen candidate for automatic status without human review.
+minimum_margin|Minimum gap between 1st and 2nd candidate to accept the choice automatically.</value></data>
+  <data name="PlaygroundExample_jev_extract_Application" xml:space="preserve"><value>AP, invoice reconciliation, or field extraction from email/PDF when you own the patterns and the model only disambiguates literal matches.</value></data>
+  <data name="PlaygroundExample_jev_screen_Title" xml:space="preserve"><value>jev_screen</value></data>
+  <data name="PlaygroundExample_jev_screen_Summary" xml:space="preserve"><value>Neutral documentation paragraph. The model scores injection risk, substantive content, and (with purpose) task relevance; block_at and review_at become pass, review, or block.</value></data>
+  <data name="PlaygroundExample_jev_screen_Fields" xml:space="preserve"><value>text|External content that could enter the agent context (web page, attachment, tool output).
+purpose|What the text would be used for; improves relevance when set (may be empty).
+block_at|If injection probability exceeds this, recommendation tends toward block.
+review_at|Above this (and below block_at), recommendation tends toward review instead of pass.</value></data>
+  <data name="PlaygroundExample_jev_screen_Application" xml:space="preserve"><value>Guardrail before web fetches, tickets, or attachments reach the LLM prompt.</value></data>
+  <data name="PlaygroundExample_jev_verify_Title" xml:space="preserve"><value>jev_verify</value></data>
+  <data name="PlaygroundExample_jev_verify_Summary" xml:space="preserve"><value>One claim (“The sky is blue”) against evidence text. Jev returns per-claim verdict, probability spread, and whether confidence meets auto_accept.</value></data>
+  <data name="PlaygroundExample_jev_verify_Fields" xml:space="preserve"><value>claims|One claim per line to check against the evidence.
+evidence|Supporting material as plain quoted string or JSON accepted by the API.
+auto_accept|Minimum confidence to mark the verdict automatic instead of review.</value></data>
+  <data name="PlaygroundExample_jev_verify_Application" xml:space="preserve"><value>Citation checking in reports, support answers, or AI summaries before shipping.</value></data>
+  <data name="PlaygroundExample_jev_find_Title" xml:space="preserve"><value>jev_find</value></data>
+  <data name="PlaygroundExample_jev_find_Summary" xml:space="preserve"><value>Query “authentication” over two snippets (cookie login vs. office floors). Ranks relevance without embeddings and signals whether any candidate truly answers the question.</value></data>
+  <data name="PlaygroundExample_jev_find_Fields" xml:space="preserve"><value>query|Natural-language question candidates should address.
+candidates|JSON with id and text per item — passages to choose from.
+top_k|How many top matches to return (1–50).</value></data>
+  <data name="PlaygroundExample_jev_find_Application" xml:space="preserve"><value>Pick the best doc chunk, ticket, or FAQ entry for a user or agent question.</value></data>
+  <data name="PlaygroundExample_jev_rerank_Title" xml:space="preserve"><value>jev_rerank</value></data>
+  <data name="PlaygroundExample_jev_rerank_Summary" xml:space="preserve"><value>Same candidates as find, but all scored in one call and returned sorted by relevance — useful for the full ranking.</value></data>
+  <data name="PlaygroundExample_jev_rerank_Fields" xml:space="preserve"><value>query|Same as find: search intent in natural language.
+candidates|Full list to reorder; each entry needs id and text.
+top_k|Cap on how many ranked items appear in the response.</value></data>
+  <data name="PlaygroundExample_jev_rerank_Application" xml:space="preserve"><value>Reorder lexical search hits or snippet lists before building RAG context.</value></data>
+  <data name="PlaygroundExample_jev_classify_Title" xml:space="preserve"><value>jev_classify</value></data>
+  <data name="PlaygroundExample_jev_classify_Summary" xml:space="preserve"><value>One ticket line (“Reset the password by email”) and two labels (auth vs. other). Assigns a class with auto vs. review policy.</value></data>
+  <data name="PlaygroundExample_jev_classify_Fields" xml:space="preserve"><value>items|JSON objects with id and text — what gets classified (one or many per call).
+classes|Shared catalog with id and description per label.
+purpose|Optional task context (e.g. support routing).
+auto_accept|Minimum probability on the chosen class for an automatic decision.
+minimum_margin|Minimum margin between 1st and 2nd class to avoid auto on a tie.</value></data>
+  <data name="PlaygroundExample_jev_classify_Application" xml:space="preserve"><value>Ticket triage, email routing, or batch labeling with a fixed label set.</value></data>
+  <data name="PlaygroundExample_jev_decide_Title" xml:space="preserve"><value>jev_decide</value></data>
+  <data name="PlaygroundExample_jev_decide_Summary" xml:space="preserve"><value>“Which option should we ship?” with evidence (cost vs. safety), priorities, and two named alternatives.</value></data>
+  <data name="PlaygroundExample_jev_decide_Fields" xml:space="preserve"><value>decision|Closed question the model must resolve (2–6 options in candidates).
+evidence|Facts or arguments supporting the choice.
+priorities|Explicit criteria (e.g. safety over cost).
+candidates|JSON with id and description per valid alternative.
+requirements|Optional: one constraint per line any choice must satisfy.</value></data>
+  <data name="PlaygroundExample_jev_decide_Application" xml:space="preserve"><value>Product, policy, or agent-plan choices among a small set with supporting text.</value></data>
+  <data name="PlaygroundExample_jev_compare_Title" xml:space="preserve"><value>jev_compare</value></data>
+  <data name="PlaygroundExample_jev_compare_Summary" xml:space="preserve"><value>Two passages about retries (three attempts vs. none). Labels factual relation: same_fact, contradicts, or different_facts.</value></data>
+  <data name="PlaygroundExample_jev_compare_Fields" xml:space="preserve"><value>passage_a|First text to compare.
+passage_b|Second text to compare.
+aspects|Optional: one aspect per line for finer judgments (empty uses global comparison).
+purpose|Optional why the comparison matters.
+auto_accept|Minimum confidence to accept the verdict automatically.
+minimum_margin|Minimum margin between competing hypotheses.</value></data>
+  <data name="PlaygroundExample_jev_compare_Application" xml:space="preserve"><value>Spot inconsistency between doc versions, model output and source, or two extractions.</value></data>
+  <data name="PlaygroundExample_jev_review_Title" xml:space="preserve"><value>jev_review</value></data>
+  <data name="PlaygroundExample_jev_review_Summary" xml:space="preserve"><value>Feature request (“Add a logout button”) and a minimal diff adding “Logout”. Scores the patch against the request and safe_to_apply.</value></data>
+  <data name="PlaygroundExample_jev_review_Fields" xml:space="preserve"><value>request|What the user or ticket asked for (expected scope).
+diff|Unified patch or proposed change snippet.
+tests|Optional: test description or validation evidence.
+auto_accept|Threshold to auto-approve the patch.
+review_at|Below auto, above this tends toward review.
+composite_floor|Floor on composite rubric score before considering auto.</value></data>
+  <data name="PlaygroundExample_jev_review_Application" xml:space="preserve"><value>Review agent or human PRs before applying patches to a repo.</value></data>
+  <data name="PlaygroundExample_jev_gate_Title" xml:space="preserve"><value>jev_gate</value></data>
+  <data name="PlaygroundExample_jev_gate_Summary" xml:space="preserve"><value>Combines diff review with verification of completion claims against evidence — the agent end-of-task gate.</value></data>
+  <data name="PlaygroundExample_jev_gate_Fields" xml:space="preserve"><value>request|Original task ask.
+diff|Proposed change to validate.
+claims|One completion statement per line (e.g. “logout was added”).
+evidence|Material supporting or refuting claims (JSON or string).
+tests|Optional: tests mentioned or run.
+auto_accept|Confidence threshold to close the task automatically.
+review_at|Human review band between auto and failure.
+composite_floor|Floor on aggregated gate score.</value></data>
+  <data name="PlaygroundExample_jev_gate_Application" xml:space="preserve"><value>Block “task done” until the patch is acceptable and delivery claims are supported.</value></data>
+</root>

@@ -1,0 +1,47 @@
+@page "/login"
+@layout LoginLayout
+@attribute [AllowAnonymous]
+@inject AccessControlState State
+
+<PageTitle>@L["LoginTitle"]</PageTitle>
+
+<MudPaper Class="pa-8" Outlined="true" Elevation="0">
+    <MudText Typo="Typo.h5">@L["LoginTitle"]</MudText>
+    <MudText Typo="Typo.body2" Class="mt-2 mb-4">
+        @L["LoginHelp"]
+    </MudText>
+
+    @if (Error)
+    {
+        <MudAlert Severity="Severity.Error" Class="mb-4">@L["LoginInvalid"]</MudAlert>
+    }
+
+    <form method="post" action="/api/session">
+        <AntiforgeryToken />
+        <label class="login-field">
+            <span class="login-field-label">@L["LoginUsername"]</span>
+            <input type="text" name="username" required autocomplete="username" class="login-field-input" />
+        </label>
+        <label class="login-field">
+            <span class="login-field-label">@L["LoginPassword"]</span>
+            <input type="password" name="password" required autocomplete="current-password" class="login-field-input" />
+        </label>
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true">
+            @L["LoginSubmit"]
+        </MudButton>
+    </form>
+
+    @if (State.SetupRequired)
+    {
+        <MudButton Href="/setup" Variant="Variant.Text" Color="Color.Default" Class="mt-4" FullWidth="true">
+            @L["SetupTitle"]
+        </MudButton>
+    }
+</MudPaper>
+
+@code {
+    [SupplyParameterFromQuery(Name = "error")]
+    public int ErrorFlag { get; set; }
+
+    private bool Error => ErrorFlag != 0;
+}

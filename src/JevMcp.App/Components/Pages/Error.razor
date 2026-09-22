@@ -1,0 +1,29 @@
+﻿@page "/Error"
+@using System.Diagnostics
+@attribute [AllowAnonymous]
+
+<PageTitle>@L["ErrorTitle"]</PageTitle>
+
+<MudAlert Severity="Severity.Error" Class="mb-4">@L["ErrorBody"]</MudAlert>
+
+@if (ShowRequestId)
+{
+    <MudText Typo="Typo.body2">
+        @L["RequestId"] <code>@RequestId</code>
+    </MudText>
+}
+
+@code {
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    [PersistentState]
+    public string? RequestId { get; set; }
+
+    private bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+
+    protected override void OnInitialized()
+    {
+        RequestId ??= Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
+    }
+}

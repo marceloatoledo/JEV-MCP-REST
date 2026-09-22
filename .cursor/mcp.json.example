@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "jev-mcp": {
+      "url": "https://localhost:7201/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:JEVMCP_TOKEN}"
+      }
+    }
+  }
+}
+

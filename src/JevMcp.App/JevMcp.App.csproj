@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+    <NeutralLanguage>pt-BR</NeutralLanguage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Markdig" />
+    <PackageReference Include="Microsoft.AspNetCore.App.Internal.Assets" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="ModelContextProtocol.AspNetCore" />
+    <PackageReference Include="MudBlazor" />
+    <PackageReference Include="Scalar.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="MudBlazor" />
+    <Using Include="MudBlazor.Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JevMcp.Tools\JevMcp.Tools.csproj" />
+    <ProjectReference Include="..\JevMcp.Data\JevMcp.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="JevMcp.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\README.md" Link="README.md" LogicalName="JevMcp.App.Readme.en.md" />
+    <EmbeddedResource Include="..\..\docs\readme.pt-BR.md" Link="Embedded\ReadmePtBr.md" LogicalName="JevMcp.App.Readme.PtBr.md" />
+    <EmbeddedResource Include="..\..\docs\readme.es.md" Link="Embedded\ReadmeEs.md" LogicalName="JevMcp.App.Readme.Es.md" />
+    <Content Include="..\..\README.md" Link="README.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\*.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,39 @@
+@implements IDisposable
+@inject ThemeState Theme
+@inject IJSRuntime JS
+
+<MudThemeProvider IsDarkMode="_mudDarkMode"
+                  IsDarkModeChanged="OnMudDarkModeChangedAsync"
+                  ObserveSystemDarkModeChange="false" />
+@ChildContent
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool _mudDarkMode;
+
+    protected override void OnInitialized() => Theme.Changed += OnThemeChanged;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        await Theme.EnsureLoadedAsync(JS);
+        _mudDarkMode = Theme.IsDarkMode;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task OnMudDarkModeChangedAsync(bool value) => await Theme.SetDarkModeAsync(JS, value);
+
+    private void OnThemeChanged()
+    {
+        _mudDarkMode = Theme.IsDarkMode;
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose() => Theme.Changed -= OnThemeChanged;
+}

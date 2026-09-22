@@ -1,0 +1,40 @@
+@inject IDialogService DialogService
+
+<MudTooltip Text="@L["PlaygroundExampleInfoAria"]">
+    <MudIconButton Icon="@Icons.Material.Outlined.Info"
+                   Color="Color.Info"
+                   Size="Size.Small"
+                   OnClick="OpenAsync"
+                   aria-label="@L["PlaygroundExampleInfoAria"]" />
+</MudTooltip>
+
+@code {
+    [Parameter]
+    public string Tool { get; set; } = "";
+
+    private async Task OpenAsync()
+    {
+        if (string.IsNullOrEmpty(Tool))
+        {
+            return;
+        }
+
+        var title = L[$"PlaygroundExample_{Tool}_Title"];
+        var parameters = new DialogParameters<PlaygroundExampleDialog>
+        {
+            { dialog => dialog.Title, title.Value },
+            { dialog => dialog.Summary, L[$"PlaygroundExample_{Tool}_Summary"].Value },
+            { dialog => dialog.Fields, L[$"PlaygroundExample_{Tool}_Fields"].Value },
+            { dialog => dialog.Application, L[$"PlaygroundExample_{Tool}_Application"].Value },
+        };
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            MaxWidth = MaxWidth.Medium,
+            FullWidth = true,
+            BackdropClick = true,
+        };
+
+        await DialogService.ShowAsync<PlaygroundExampleDialog>(null, parameters, options);
+    }
+}

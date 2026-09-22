@@ -1,0 +1,55 @@
+@page "/setup"
+@layout MainLayout
+@attribute [AllowAnonymous]
+@inject AccessControlState State
+@inject OneTimeSecrets Secrets
+@inject AuthenticationStateProvider Auth
+@inject NavigationManager Nav
+
+<PageTitle>@L["SetupTitle"]</PageTitle>
+
+<MudText Typo="Typo.h5">@L["SetupTitle"]</MudText>
+<MudText Typo="Typo.body2" Class="mt-2 mb-4">
+    @L["SetupHelp"]
+</MudText>
+
+@if (_secret is not null)
+{
+    <MudAlert Severity="Severity.Warning" Class="mb-4">
+        @L["SetupOnce"]
+    </MudAlert>
+    <MudPaper Class="pa-4 mb-4" Outlined="true">
+        <MudText Typo="Typo.subtitle2">@L["Token"]</MudText>
+        <MudText Typo="Typo.body1"><code>@_secret</code></MudText>
+    </MudPaper>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/">@L["SetupGoDashboard"]</MudButton>
+}
+else if (State.SetupRequired)
+{
+    <form method="post" action="/api/setup">
+        <AntiforgeryToken />
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">
+            @L["SetupGenerate"]
+        </MudButton>
+    </form>
+}
+else
+{
+    <MudAlert Severity="Severity.Info">@L["SetupDone"]</MudAlert>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" Href="/login">@L["LoginSubmit"]</MudButton>
+}
+
+@code {
+    private string? _secret;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _secret = Secrets.ConsumeSetup();
+        var auth = await Auth.GetAuthenticationStateAsync();
+
+        if (!State.SetupRequired && _secret is null)
+        {
+            Nav.NavigateTo(auth.User.Identity?.IsAuthenticated == true ? "/" : "/login");
+        }
+    }
+}

@@ -1,0 +1,240 @@
+@page "/"
+@attribute [Authorize]
+@inject ICallLogQueries Queries
+@inject CredentialOverview Credentials
+@inject UiDisplayTime DisplayTime
+@implements IDisposable
+
+<PageTitle>@L["DashboardTitle"]</PageTitle>
+
+<MudText Typo="Typo.h5">@L["DashboardTitle"]</MudText>
+<MudText Typo="Typo.body2" Class="mt-2 mb-4">
+    @L["DashboardHelp"]
+</MudText>
+
+<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Wrap="Wrap.Wrap" Class="mb-4">
+    <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
+        <MudButton Variant="@VariantFor(24)" OnClick="@(() => SelectAsync(24))">@L["Hours24"]</MudButton>
+        <MudButton Variant="@VariantFor(24 * 7)" OnClick="@(() => SelectAsync(24 * 7))">@L["Days7"]</MudButton>
+        <MudButton Variant="@VariantFor(24 * 30)" OnClick="@(() => SelectAsync(24 * 30))">@L["Days30"]</MudButton>
+    </MudButtonGroup>
+    <MudButton Variant="Variant.Outlined" Color="Color.Primary"
+               Href="@_filter.ToAuditPath(DateTime.UtcNow)">
+        @L["ViewInAudit"]
+    </MudButton>
+</MudStack>
+
+@if (_filter.Chips(L["EmptyAction"]).Count > 0)
+{
+    <MudStack Row="true" Wrap="Wrap.Wrap" Class="mb-4">
+        @foreach (var chip in _filter.Chips(L["EmptyAction"], DisplayTime.FormatInstantRange))
+        {
+            <MudChip T="string" Color="Color.Primary" Variant="Variant.Filled"
+                     OnClose="@(() => ClearAsync(chip.Dimension))">
+                @chip.Label
+            </MudChip>
+        }
+    </MudStack>
+    <MudButton Variant="Variant.Text" Color="Color.Primary" Class="mb-4" OnClick="ClearAllAsync">
+        @L["ClearFilters"]
+    </MudButton>
+}
+
+<MudGrid Spacing="3">
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4" Outlined="true">
+            <MudText Typo="Typo.caption">@L["Provider"]</MudText>
+            <MudText Typo="Typo.h6">@(Credentials.Provider ?? L["NotConfigured"].Value)</MudText>
+            @if (!Credentials.IsConfigured)
+            {
+                <MudAlert Severity="Severity.Warning" Class="mt-3" Dense="true">
+                    @(Credentials.Error ?? L["NoProviderCredentials"].Value)
+                </MudAlert>
+            }
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4" Outlined="true">
+            <MudText Typo="Typo.caption">@L["Model"]</MudText>
+            <MudText Typo="Typo.h6">@Credentials.Model</MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4" Outlined="true">
+            <MudText Typo="Typo.caption">@L["Calls"]</MudText>
+            <MudText Typo="Typo.h6">@UsageFormat.Whole(_snapshot.CallCount)</MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4" Outlined="true">
+            <MudText Typo="Typo.caption">@L["AverageLatency"]</MudText>
+            <MudText Typo="Typo.h6">@UsageFormat.Milliseconds(_snapshot.AverageLatencyMs)</MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4" Outlined="true">
+            <MudText Typo="Typo.caption">@L["InputTokens"]</MudText>
+            <MudText Typo="Typo.h6">@UsageFormat.Whole(_snapshot.InputTokens)</MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4" Outlined="true">
+            <MudText Typo="Typo.caption">@L["OutputTokens"]</MudText>
+            <MudText Typo="Typo.h6">@UsageFormat.Whole(_snapshot.OutputTokens)</MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4" Outlined="true">
+            <MudText Typo="Typo.caption">@L["TotalTokens"]</MudText>
+            <MudText Typo="Typo.h6">@UsageFormat.Whole(_snapshot.InputTokens + _snapshot.OutputTokens)</MudText>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4" Outlined="true">
+            <MudText Typo="Typo.caption">@L["PeriodCostUsd"]</MudText>
+            <MudText Typo="Typo.h6">@UsageFormat.Usd(_snapshot.TotalCostUsd)</MudText>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@if (_snapshot.CallCount == 0)
+{
+    <MudAlert Severity="Severity.Info" Class="mt-6">
+        @L["EmptyPeriod"]
+    </MudAlert>
+}
+else
+{
+    <MudGrid Class="mt-6" Spacing="3">
+        <MudItem xs="12">
+            <MudText Typo="Typo.subtitle1" Class="mb-2">@L["ChartConsumption"]</MudText>
+            <MudPaper Class="pa-2" Outlined="true">
+                <DashboardChart Kind="consumption" OptionJson="@_consumptionJson" Height="340" Hit="OnHitAsync" />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12">
+            <MudText Typo="Typo.subtitle1" Class="mb-2">@L["ChartVolume"]</MudText>
+            <MudPaper Class="pa-2" Outlined="true">
+                <DashboardChart Kind="volume" OptionJson="@_volumeJson" Height="320" Hit="OnHitAsync" />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudText Typo="Typo.subtitle1" Class="mb-2">@L["ChartTools"]</MudText>
+            <MudPaper Class="pa-2" Outlined="true">
+                <DashboardChart Kind="tools" OptionJson="@_toolsJson" Height="300" Hit="OnHitAsync" />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudText Typo="Typo.subtitle1" Class="mb-2">@L["ChartLatency"]</MudText>
+            <MudPaper Class="pa-2" Outlined="true">
+                <DashboardChart Kind="latency" OptionJson="@_latencyJson" Height="300" Hit="OnHitAsync" />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudText Typo="Typo.subtitle1" Class="mb-2">@L["ChartActions"]</MudText>
+            <MudPaper Class="pa-2" Outlined="true">
+                <DashboardChart Kind="actions" OptionJson="@_actionsJson" Height="300" Hit="OnHitAsync" />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudText Typo="Typo.subtitle1" Class="mb-2">@L["ChartStatus"]</MudText>
+            <MudPaper Class="pa-2" Outlined="true">
+                <DashboardChart Kind="status" OptionJson="@_statusJson" Height="300" Hit="OnHitAsync" />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12">
+            <MudText Typo="Typo.subtitle1" Class="mb-2">@L["ChartHeatmap"]</MudText>
+            <MudPaper Class="pa-2" Outlined="true">
+                <DashboardChart Kind="heatmap" OptionJson="@_heatmapJson" Height="@_heatmapHeight" Hit="OnHitAsync" />
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+}
+
+@code {
+    private DashboardFilter _filter = new();
+    private DashboardSnapshot _snapshot = new();
+    private DashboardSeries _series = new();
+    private string _consumptionJson = "{}";
+    private string _volumeJson = "{}";
+    private string _actionsJson = "{}";
+    private string _statusJson = "{}";
+    private string _toolsJson = "{}";
+    private string _latencyJson = "{}";
+    private string _heatmapJson = "{}";
+    private int _heatmapHeight = 240;
+
+    protected override Task OnInitializedAsync()
+    {
+        DisplayTime.Changed += OnDisplayTimeChanged;
+        return ReloadAsync();
+    }
+
+    public void Dispose() => DisplayTime.Changed -= OnDisplayTimeChanged;
+
+    private void OnDisplayTimeChanged() => InvokeAsync(async () =>
+    {
+        await ReloadAsync();
+        StateHasChanged();
+    });
+
+    private Variant VariantFor(int hours) =>
+        _filter.FromUtc is null && _filter.PresetHours == hours ? Variant.Filled : Variant.Outlined;
+
+    private Task SelectAsync(int hours)
+    {
+        _filter = _filter.WithPreset(hours);
+        return ReloadAsync();
+    }
+
+    private Task ClearAsync(string dimension)
+    {
+        _filter = _filter.ClearDimension(dimension);
+        return ReloadAsync();
+    }
+
+    private Task ClearAllAsync()
+    {
+        _filter = _filter.WithPreset(_filter.PresetHours);
+        return ReloadAsync();
+    }
+
+    internal async Task ApplyHitAsync(ChartHit hit)
+    {
+        _filter = _filter.Apply(hit);
+        await ReloadAsync();
+        StateHasChanged();
+    }
+
+    private Task OnHitAsync(ChartHit hit) => ApplyHitAsync(hit);
+
+    private async Task ReloadAsync()
+    {
+        var text = new DashboardChartText
+        {
+            Calls = L["Calls"].Value,
+            Tokens = L["Tokens"].Value,
+            InputTokens = L["InputTokens"].Value,
+            OutputTokens = L["OutputTokens"].Value,
+            CostUsd = L["CostUsd"].Value,
+            AverageLatency = L["AverageLatency"].Value,
+            EmptyAction = L["EmptyAction"].Value,
+            SaveImage = L["SaveImage"].Value,
+        };
+
+        var query = _filter.ToQuery(DateTime.UtcNow);
+        _snapshot = await Queries.GetDashboardAsync(query);
+        _series = _snapshot.CallCount == 0
+            ? new DashboardSeries()
+            : await Queries.GetDashboardSeriesAsync(query);
+        var zone = DisplayTime.Zone;
+        _consumptionJson = DashboardChartOptions.Consumption(_series.Volume, text, zone);
+        _volumeJson = DashboardChartOptions.Volume(_series.Volume, text, zone);
+        _actionsJson = DashboardChartOptions.Pie(_series.Actions, ChartHit.Action, text, L["ChartActions"].Value);
+        _statusJson = DashboardChartOptions.Pie(_series.Statuses, ChartHit.Status, text, L["ChartStatus"].Value);
+        _toolsJson = DashboardChartOptions.Tools(_series.Tools, text);
+        _latencyJson = DashboardChartOptions.Latency(_series.Latency, text);
+        _heatmapJson = DashboardChartOptions.Heatmap(_series.Heatmap, text);
+        _heatmapHeight = DashboardChartOptions.HeatmapHeight(_series.Heatmap);
+    }
+}

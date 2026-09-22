@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/JevMcp.Core/JevMcp.Core.csproj" />
+    <Project Path="src/JevMcp.Providers/JevMcp.Providers.csproj" />
+    <Project Path="src/JevMcp.Tools/JevMcp.Tools.csproj" />
+    <Project Path="src/JevMcp.Data/JevMcp.Data.csproj" />
+    <Project Path="src/JevMcp.App/JevMcp.App.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/JevMcp.Tests/JevMcp.Tests.csproj" />
+  </Folder>
+</Solution>

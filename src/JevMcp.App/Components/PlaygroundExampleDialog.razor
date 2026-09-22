@@ -1,0 +1,76 @@
+<MudDialog>
+    <TitleContent>
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+            <MudAvatar Color="Color.Info" Variant="Variant.Outlined" Size="Size.Small">
+                <MudIcon Icon="@Icons.Material.Outlined.MenuBook" Size="Size.Small" />
+            </MudAvatar>
+            <MudText Typo="Typo.h6">@Title</MudText>
+        </MudStack>
+    </TitleContent>
+    <DialogContent>
+        <div class="playground-example-dialog-content">
+        <MudStack Spacing="3">
+            <section>
+                <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="mb-2">
+                    @L["PlaygroundExampleSectionScenario"]
+                </MudText>
+                <MudText Typo="Typo.body2" Style="white-space:pre-line">@Summary</MudText>
+            </section>
+
+            <MudDivider />
+
+            <section>
+                <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="mb-2">
+                    @L["PlaygroundExampleSectionFields"]
+                </MudText>
+                <MudStack Spacing="2">
+                    @foreach (var (name, description) in PlaygroundExampleFieldParser.Parse(Fields))
+                    {
+                        <MudPaper Class="pa-3" Outlined="true" Elevation="0">
+                            <MudStack Spacing="1">
+                                <MudText Typo="Typo.subtitle2" Style="font-family:var(--mud-typography-family-code)">@name</MudText>
+                                <MudText Typo="Typo.body2" Class="mud-text-secondary">@description</MudText>
+                            </MudStack>
+                        </MudPaper>
+                    }
+                </MudStack>
+            </section>
+
+            <MudDivider />
+
+            <section>
+                <MudText Typo="Typo.subtitle2" Color="Color.Primary" Class="mb-2">
+                    @L["PlaygroundExampleSectionApplication"]
+                </MudText>
+                <MudAlert Severity="Severity.Info" Variant="Variant.Outlined" Dense="true" Class="mud-width-full">
+                    <MudText Typo="Typo.body2" Style="white-space:pre-line">@Application</MudText>
+                </MudAlert>
+            </section>
+        </MudStack>
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Close">
+            @L["PlaygroundExampleClose"]
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter]
+    public string Title { get; set; } = "";
+
+    [Parameter]
+    public string Summary { get; set; } = "";
+
+    [Parameter]
+    public string Fields { get; set; } = "";
+
+    [Parameter]
+    public string Application { get; set; } = "";
+
+    private void Close() => MudDialog.Close();
+}

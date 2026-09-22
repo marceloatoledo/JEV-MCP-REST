@@ -1,0 +1,38 @@
+@page "/readme"
+@attribute [Authorize]
+@inject IProjectReadmeSource ReadmeSource
+
+<PageTitle>@L["ReadmeTitle"]</PageTitle>
+
+<MudText Typo="Typo.h5" Class="mb-4">@L["ReadmeTitle"]</MudText>
+
+@if (_loading)
+{
+    <MudProgressLinear Indeterminate="true" Class="mb-4" />
+}
+else if (string.IsNullOrEmpty(_markdown))
+{
+    <MudAlert Severity="Severity.Info" Variant="Variant.Outlined">@L["ReadmeMissing"]</MudAlert>
+}
+else
+{
+    <MarkdownView Markdown="@_markdown" EmptyMessage="@L["ReadmeMissing"].Value" />
+}
+
+@code {
+    private bool _loading = true;
+    private string? _markdown;
+    private string? _culture;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+        if (!_loading && culture == _culture && _markdown is not null)
+            return;
+
+        _culture = culture;
+        _loading = true;
+        _markdown = await ReadmeSource.GetMarkdownAsync();
+        _loading = false;
+    }
+}
