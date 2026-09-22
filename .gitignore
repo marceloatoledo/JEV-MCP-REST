@@ -6,6 +6,9 @@
 # dotenv files
 .env
 
+# Local publish output (dotnet publish -o _pub); not used by Docker/CI
+_pub/
+
 # OpenSpec (local workflow / specs; not versioned)
 openspec/
 
